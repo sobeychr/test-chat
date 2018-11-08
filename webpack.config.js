@@ -1,27 +1,29 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-    context: path.join(__dirname, "web"),
-    devtool: debug ? "inline-sourcemap" : false,
-    entry: "./web/source.js",
+    mode:  'development',
+    entry: './src/main.js',
+
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['react', 'es2015', 'stage-0'],
-                    plugins: ['react-html-attrs'],
+                exclude: [
+                    path.resolve(__dirname, "node_modules")
+                ],
+                include: [
+                    path.resolve(__dirname, "src")
+                ],
+                loader: "babel-loader",
+                options: {
+                    presets: ["es2015"]
                 }
             }
         ]
     },
+
     output: {
-        path: __dirname + "/web/",
-        filename: "source.min.js"
-    },
-    plugins: []
+        filename: 'src.min.js',
+        path: path.resolve(__dirname, 'web')
+    }
 };
