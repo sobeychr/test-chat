@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Index from './components/Index';
+import Routes from './routes';
+import './style/global.scss';
 
 const app = document.getElementById('app');
-ReactDOM.render(<Index/>, app);
+ReactDOM.render(<Routes/>, app);

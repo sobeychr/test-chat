@@ -1,0 +1,24 @@
+html, body {
+    background: $bgColor1;
+    color: $color1;
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: $linkColor0;
+    text-decoration: none;
+
+    &:hover {
+        color: $linkColor1;
+        text-decoration: underline;
+    }
+}
+
+blockquote, div,
+h1, h2, h3, h4, h5, h6,
+p, pre {
+    margin: 0;
+    padding: 0;
+}

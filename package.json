@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "main.js",
 	"scripts": {
-        "build": "babel-node ./node_modules/webpack/bin/webpack",
+		"build": "babel-node ./node_modules/webpack/bin/webpack",
 		"start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server",
 		"test": "echo \"TESTING\" && exit 1"
 	},
@@ -28,6 +28,7 @@
 		"path": "0.12.7",
 		"react": "16.6.1",
 		"react-dom": "16.6.1",
+		"react-router-dom": "4.3.1",
 		"redux": "4.0.1",
 		"sass-loader": "7.1.0",
 		"style-loader": "0.23.1",

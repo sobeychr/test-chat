@@ -12,10 +12,12 @@ module.exports =
     devServer: {
         bonjour: true,
         clientLogLevel: 'info',
+        compress: true,
         contentBase: path.join(__dirname,'web'),
         headers: {
             'X-Custom-Header': 'testing'
         },
+        historyApiFallback: true,
         inline: true,
         host: 'localhost',
         https: false,
