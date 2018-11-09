@@ -1,25 +1,29 @@
 import path from 'path';
 // const path = require('path');
 
-module.exports = {
-    entry: path.join(__dirname,'src','main.js'),
+module.exports = 
+{    entry: path.join(__dirname,'src','main.js'),
+
     output: {
         path: path.join(__dirname,'web'),
         filename: 'src.min.js'
     },
 
-    mode: process.env.NODE_ENV || 'development',
-
-    resolve: {
-        modules: [
-            path.resolve(__dirname, 'src'),
-            'node_modules'
-        ]
-    },
-
     devServer: {
-        contentBase: path.join(__dirname,'web')
+        bonjour: true,
+        clientLogLevel: 'info',
+        contentBase: path.join(__dirname,'web'),
+        headers: {
+            'X-Custom-Header': 'testing'
+        },
+        inline: true,
+        host: 'localhost',
+        https: false,
+        open: true,
+        port: 3000
     },
+
+    mode: process.env.NODE_ENV || 'development',
 
     module: {
         rules: [
@@ -40,6 +44,13 @@ module.exports = {
                 test: /\.(jpe?g|gif|png|mp3|svg)$/,
                 loaders: ['file-loader']
             }
+        ]
+    },
+
+    resolve: {
+        modules: [
+            path.resolve(__dirname, 'src'),
+            'node_modules'
         ]
     }
 };
