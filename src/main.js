@@ -1,13 +1,7 @@
-/*
-import React form 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import Index from './components/Index';
+import Index from './components/Index';
 
 const app = document.getElementById('app');
-ReactDOM.render(<h1>test<h1>, app);
-*/
-
-(function(){
-    console.log('testing');
-}());
+ReactDOM.render(<Index/>, app);
