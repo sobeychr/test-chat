@@ -1,0 +1,29 @@
+$avatarUrl:  './../../../image/avatar-';
+$avatarTotal: 7;
+
+$column: 6;
+$row:    6;
+
+$baseHeight: 90px;
+$baseWidth:  90px;
+
+$newHeight: 40px;
+$newWidth:  40px;
+
+$bgHeight: ($newHeight / $baseHeight) * ($row * $baseHeight);
+$bgWidth:  ($newWidth / $baseWidth)   * ($column * $baseWidth);
+
+.windowavatar {
+    background: transparent top left no-repeat;
+    background-size: $bgWidth $bgHeight;
+    border-radius: 25%;
+    display: inline-block;
+    height: $newHeight;
+    width: $newWidth;
+
+    @for $i from 0 through $avatarTotal {
+        &.windowavatar#{$i} {
+            background-image: url($avatarUrl + $i + '.jpg');
+        }
+    }
+}
