@@ -1,0 +1,9 @@
+@import './default';
+
+.buttoniconadd {
+    color: $colorGreen1;
+
+    &:hover {
+        color: $colorGreen0;
+    }
+}

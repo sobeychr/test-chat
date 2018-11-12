@@ -1,0 +1,12 @@
+[
+    {
+        "user": "John",
+        "text": "Hi world",
+        "time": 1542029460
+    },
+    {
+        "user": "Obi-wan",
+        "text": "Hello there",
+        "time": 1542029455
+    }
+]

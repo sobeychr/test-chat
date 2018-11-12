@@ -1,0 +1,14 @@
+[
+    {
+        "name": "John",
+        "avatar": 1,
+        "status": 1,
+
+        "window": {
+            "posx": 200,
+            "posy": 200,
+            "width": 250,
+            "height": 250
+        }
+    }
+]

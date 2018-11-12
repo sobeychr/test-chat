@@ -1,0 +1,30 @@
+@import "./../../_global/variable";
+
+.buttonicon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: 2px 5px;
+    outline: none;
+
+    &:hover {
+        
+    }
+
+    .icon {
+        margin-right: 3px;
+    }
+
+    &:hover {
+        .icon .out {
+            display: none;
+        }
+    }
+    &:not(:hover) {
+        .icon .hover {
+            display: none;
+        }
+    }
+}
