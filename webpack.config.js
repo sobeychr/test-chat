@@ -1,5 +1,4 @@
 import path from 'path';
-// const path = require('path');
 
 module.exports = 
 {    entry: path.join(__dirname,'src','main.js'),
@@ -35,11 +34,17 @@ module.exports =
                 use: ['babel-loader']
             },
             {
-                test: /\.s?css$/,
+                test: /\.scss$/,
                 use: [
                     'style-loader',
                     'css-loader',
-                    'sass-loader'
+                    'sass-loader',
+                    {loader: '@epegzz/sass-vars-loader', options: {
+                        syntax: 'scss',
+                        files: [
+                            path.resolve(__dirname, 'src/data/avatar.json')
+                        ]
+                    }}
                 ]
             },
             {

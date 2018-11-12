@@ -1,25 +1,16 @@
 $avatarUrl:  './../../../image/avatar-';
 $avatarTotal: 7;
 
-$column: 6;
-$row:    6;
-
-$baseHeight: 90px;
-$baseWidth:  90px;
-
-$newHeight: 40px;
-$newWidth:  40px;
-
-$bgHeight: ($newHeight / $baseHeight) * ($row * $baseHeight);
-$bgWidth:  ($newWidth / $baseWidth)   * ($column * $baseWidth);
+$bgHeight: ($newHeight / $baseHeight) * ($rows * $baseHeight);
+$bgWidth:  ($newWidth / $baseWidth)   * ($columns * $baseWidth);
 
 .windowavatar {
     background: transparent top left no-repeat;
-    background-size: $bgWidth $bgHeight;
+    background-size: $bgWidth*1px $bgHeight*1px;
     border-radius: 25%;
     display: inline-block;
-    height: $newHeight;
-    width: $newWidth;
+    height: $newHeight * 1px;
+    width: $newWidth * 1px;
 
     @for $i from 0 through $avatarTotal {
         &.windowavatar#{$i} {

@@ -3,21 +3,12 @@ import PropTypes from 'prop-types';
 
 import './../../../style/element/window/windowavatar.scss';
 
-const grid = {
-    maxColumn: 6,
-    maxRow:    6,
-
-    baseHeight: 90,
-    baseWidth:  90,
-
-    newHeight: 40,
-    newWidth:  40
-};
+const grid = require('./../../../data/avatar.json');
 
 class WindowAvatar extends React.Component {
     getColumn() {
         const imgCount = this.getImg() * this.getMaxGrid(),
-              rowCount = this.getRow() * grid.maxRow,
+              rowCount = this.getRow() * grid.rows,
               counter = this.props.id - imgCount - rowCount;
         return counter - 1; // zero-based index
     }
@@ -25,12 +16,12 @@ class WindowAvatar extends React.Component {
         return Math.floor(this.props.id / this.getMaxGrid());
     }
     getMaxGrid() {
-        return grid.maxColumn * grid.maxRow;
+        return grid.columns * grid.rows;
     }
     getRow() {
         const imgCount = this.getImg() * this.getMaxGrid(),
               counter = this.props.id - imgCount;
-        return Math.floor(counter / grid.maxRow);
+        return Math.floor(counter / grid.rows);
     }
 
     render() {

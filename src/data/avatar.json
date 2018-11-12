@@ -1,3 +1,10 @@
-[
-    
-]
+{
+    "columns": 6,
+    "rows":    6,
+
+    "baseHeight": 90,
+    "baseWidth":  90,
+
+    "newHeight": 40,
+    "newWidth":  40
+}
