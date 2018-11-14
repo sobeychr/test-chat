@@ -6,5 +6,7 @@
     "baseWidth":  90,
 
     "newHeight": 40,
-    "newWidth":  40
+    "newWidth":  40,
+
+    "exclude": [71, 72]
 }
