@@ -1,6 +1,10 @@
 {
+    "env": {
+        "test": {
+            "presets": [["env"], "react"]
+        }
+    },
     "presets": [
-        "@babel/core",
         "@babel/env",
         "@babel/react"
     ],

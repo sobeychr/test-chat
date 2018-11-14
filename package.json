@@ -9,22 +9,7 @@
     },
     "scripts": {
         "build": "babel-node ./node_modules/webpack/bin/webpack",
-        "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server",
-        "test": "jest"
-    },
-    "jest": {
-        "collectCoverageFrom": [
-            "./src/**/*.{js,jsx}",
-            "!./node_modules/",
-            "!./vendor/"
-        ],
-        "coverageDirectory": "./test",
-        "moduleNameMapper": {
-            "\\.(css|scss)$": "identity-obj-proxy"
-        },
-        "transform": {
-            "^.+\\.js$": "babel-jest"
-        }
+        "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server"
     },
     "private": true,
     "author": "",
@@ -36,12 +21,10 @@
         "@babel/preset-env": "7.1.5",
         "@babel/preset-react": "7.0.0",
         "@epegzz/sass-vars-loader": "3.4.0",
-        "babel-jest": "23.6.0",
         "babel-loader": "8.0.4",
         "css-loader": "1.0.1",
         "file-loader": "2.0.0",
         "identity-obj-proxy": "^3.0.0",
-        "jest": "23.6.0",
         "node-sass": "4.10.0",
         "path": "0.12.7",
         "prop-types": "15.6.2",
