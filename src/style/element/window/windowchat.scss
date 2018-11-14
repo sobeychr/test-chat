@@ -1,3 +1,10 @@
 .windowchat {
+    border: 3px solid #f00;
+    border-radius: 10px;
     position: absolute;
+
+    .name {
+        background: #00F;
+        font: bold 14px #fff;
+    }
 }

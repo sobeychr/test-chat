@@ -5,10 +5,34 @@
         "status": 1,
 
         "window": {
-            "posx": 200,
-            "posy": 200,
-            "width": 250,
-            "height": 250
+            "x": 0,
+            "y": 50,
+            "width": 200,
+            "height": 200
+        }
+    },
+    {
+        "name": "Cena",
+        "avatar": 25,
+        "status": 1,
+
+        "window": {
+            "x": 205,
+            "y": 50,
+            "width": 200,
+            "height": 200
+        }
+    },
+    {
+        "name": "Mark",
+        "avatar": 500,
+        "status": 1,
+
+        "window": {
+            "x": 410,
+            "y": 50,
+            "width": 200,
+            "height": 200
         }
     }
 ]
