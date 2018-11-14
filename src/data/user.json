@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "John",
         "avatar": 1,
         "status": 1,
@@ -12,6 +13,7 @@
         }
     },
     {
+        "id": 2,
         "name": "Cena",
         "avatar": 25,
         "status": 1,
@@ -24,8 +26,9 @@
         }
     },
     {
+        "id": 3,
         "name": "Mark",
-        "avatar": 500,
+        "avatar": 250,
         "status": 1,
 
         "window": {

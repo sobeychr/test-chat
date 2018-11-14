@@ -1,11 +1,13 @@
 [
     {
-        "user": "John",
+        "id": 1,
+        "user": 1,
         "text": "Hi world",
         "time": 1542029460
     },
     {
-        "user": "Obi-wan",
+        "id": 2,
+        "user": 3,
         "text": "Hello there",
         "time": 1542029455
     }

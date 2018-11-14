@@ -50,6 +50,12 @@ module.exports =
             {
                 test: /\.(jpe?g|gif|png|mp3|svg)$/,
                 loaders: ['file-loader']
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ['source-map-loader'],
+                enforce: 'pre'
             }
         ]
     },

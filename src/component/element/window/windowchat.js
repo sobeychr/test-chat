@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import WindowAvatar from './windowavatar';
+
 import './../../../style/element/window/windowchat.scss';
 
 const WindowChat = ({name, avatar, status, window}) => {
@@ -13,31 +15,23 @@ const WindowChat = ({name, avatar, status, window}) => {
 
     return (
         <div className="windowchat" style={styles}>
-            <p className="name">{name}</p>
+            <div className="name">
+                <WindowAvatar id={avatar} />
+                {name}
+            </div>
             <pre>chat window</pre>
         </div>
     );
 };
 
-/*
-class WindowChat extends React.Component {
-    render() {
-        return (
-            <div className="windowchat">
-                
-            </div>
-        );
-    }
-}
-*/
-
 export default WindowChat;
 
 WindowChat.defaultProps = {
+    id: 0,
     name: "",
     avatar: 0,
     status: 0,
-    "window": {
+    window: {
         x: 50,
         y: 50,
         width: 200,
@@ -45,6 +39,7 @@ WindowChat.defaultProps = {
     }
 };
 WindowChat.propTypes = {
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.number,
     status: PropTypes.number
