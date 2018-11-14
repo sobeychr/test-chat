@@ -10,7 +10,7 @@ class WindowAvatar extends React.Component {
         const imgCount = this.getImg() * this.getMaxGrid(),
               rowCount = this.getRow() * grid.rows,
               counter = this.props.id - imgCount - rowCount;
-        return counter - 1; // zero-based index
+        return counter;
     }
     getImg() {
         return Math.floor(this.props.id / this.getMaxGrid());
