@@ -21,7 +21,12 @@ store.dispatch({
 });
 */
 
-const windowReducer = (state={}, action) => {
+const WindowReducer = (state={
+        x: 0,
+        y: 50,
+        width: 200,
+        height: 200
+    }, action) => {
     // let newState = {...state};
     // return newState;
 
@@ -37,4 +42,4 @@ const windowReducer = (state={}, action) => {
     return state;
 };
 
-export default windowReducer;
+export default WindowReducer;

@@ -8,7 +8,7 @@ import store from './redux/store';
 import './style/default.scss';
 
 const app = document.getElementById('app');
-ReactDOM.render(<Provider>
+ReactDOM.render(<Provider store={store}>
         <Routes />
     </Provider>,
 app);

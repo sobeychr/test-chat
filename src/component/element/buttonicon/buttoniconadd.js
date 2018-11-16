@@ -4,8 +4,8 @@ import { IoIosAddCircleOutline, IoIosAddCircle } from 'react-icons/io';
 
 import './../../../style/element/buttonicon/buttoniconadd.scss';
 
-const ButtonIconAdd = ({label}) => (
-    <button className="buttonicon buttoniconadd">
+const ButtonIconAdd = ({label, onClick}) => (
+    <button className="buttonicon buttoniconadd" onClick={onClick}>
         <i className="icon">
             <IoIosAddCircleOutline className="out"/>
             <IoIosAddCircle className="hover"/>

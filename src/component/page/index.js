@@ -24,9 +24,10 @@ class Index extends React.Component {
                 (data, i) => <WindowChat key={i} {...data}/>
             );
 
+        //{users}
         return (
             <div className="main">
-                {users}
+                
             </div>
         );
     }
