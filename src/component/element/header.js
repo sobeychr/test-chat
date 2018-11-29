@@ -9,20 +9,37 @@ import './../../style/element/header.scss';
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.handleAddUser = this.handleAddUser.bind(this);
+
+        this.state = {
+            username: ''
+        };
+        
+        this.handleUsername   = this.handleUsername.bind(this);
+        this.handleUserSubmit = this.handleUserSubmit.bind(this);
     }
 
-    handleAddUser() {
+    handleUsername(event) {
+        this.setState({
+            username: event.target.value
+        });
+    }
+
+    handleUserSubmit(event) {
+        event.preventDefault();
         //this.props.store.dispatch(newUser());
+
+        const un = this.state.username;
+        
     }
 
     render() {
         return (
             <header>
                 <h1>Test chat</h1>
-                <div className="add">
-                    <ButtonIconAdd label="Add User" onClick={this.handleAddUser}/>
-                </div>
+                <form className="add" onSubmit={this.handleUserSubmit}>
+                    <ButtonIconAdd label="Add User" type="submit"/>
+                    <input type="text" placeholder="New username" value={this.state.username} onChange={this.handleUsername} />
+                </form>
             </header>
         );
     }

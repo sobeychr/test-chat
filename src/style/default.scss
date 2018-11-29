@@ -28,3 +28,26 @@ p, pre {
 h1, h2, h3, h4, h5, h6 {
     color: $color0;
 }
+
+input[type="search"],
+input[type="text"],
+textarea {
+    background: $bgColor0;
+    border: 1px solid $linkColor0;
+    color: $linkColor0;
+    padding: 4px;
+    
+    &:focus {
+        background: $bgColor1;
+        color: $linkColor1;
+        outline: 2px solid $linkColor1;
+    }
+    &:not(:focus) {
+        font-style: italic;
+    }
+
+    @include fPlaceholder {
+        color: $color4;
+        text-indent: 3px;
+    }
+}
