@@ -8,6 +8,7 @@ module.exports =
         filename: 'src.min.js'
     },
 
+    devtool: "source-map",
     devServer: {
         bonjour: true,
         clientLogLevel: 'info',
