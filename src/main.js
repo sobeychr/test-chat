@@ -3,8 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import Routes from './routes';
-import store from './redux';
-import { newUser } from './redux/actions';
+import store from './reduxStore';
 
 import './style/default.scss';
 

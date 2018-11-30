@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ButtonIconAdd from './buttonicon/buttoniconadd';
-import { newUser } from './../../redux/actions';
+import * as Types from './../../reduxStore/types';
 
 import './../../style/element/header.scss';
 
-connect()
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -30,8 +29,10 @@ class Header extends React.Component {
         const un = this.state.username;
 
         if(un.length > 0) {
-            console.log('handleUserSubmit', un, '! incomplete');
-            //this.props.dispatch( newUser(un) );
+            this.props.dispatch({
+                type: Types.NEWUSER,
+                username: un
+            });
         }
     }
 
@@ -48,4 +49,8 @@ class Header extends React.Component {
     }
 };
 
-export default Header;
+const mapStateToProp = state => {
+    return {username: state.username};
+};
+
+export default connect(mapStateToProp)(Header);
