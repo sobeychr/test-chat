@@ -13,15 +13,13 @@ class Index extends React.Component {
     }
 
     render() {
-        const userData = [];
-        const users = userData.map(
+        const users = this.props.userData.map(
                 (data, i) => <WindowChat key={i} {...data}/>
             );
 
-        //{users}
         return (
             <div className="main">
-                
+                {users}
             </div>
         );
     }
