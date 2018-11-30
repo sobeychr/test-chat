@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import Routes from './routes';
 import store from './redux';
+import { newUser } from './redux/actions';
 
 import './style/default.scss';
 
@@ -13,10 +14,4 @@ render(<Provider store={store}>
     </Provider>,
 app);
 
-const test = () => dispatch => {
-    dispatch({
-        type: 'NEWUSER'
-    });
-};
-
-store.dispatch( test() );
+store.dispatch( newUser('alpha') );
