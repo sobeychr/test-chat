@@ -1,6 +1,7 @@
-import { NEWUSER } from './types.js';
+import * as Types from './types';
 
-const startingUsers = require('./../data/user.json');
+// const startingUsers = require('./../data/user.json');
+const startingUsers = [];
 
 const defaultUser = {
     id: 0,
@@ -18,7 +19,10 @@ const defaultUser = {
 const UserReducer = (state=startingUsers, action) => {
     const type = action.type;
 
-    if(type === NEWUSER) {
+    if(type === Types.FETCHUSER) {
+        return [...state];
+    }
+    else if(type === Types.NEWUSER) {
         const name = action.name;
         return [...state,
             {...defaultUser,

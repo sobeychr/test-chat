@@ -1,14 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import WindowChat from './../element/window/windowchat.js';
+import WindowChat from './../element/window/windowchat';
+import { fetchUsers } from './../../reduxStore/actions';
 
 import './../../style/page/index.scss';
 
-// const userData = require('./../../data/user.json');
-const userData = [];
-
 class Index extends React.Component {
+    componentDidMount() {
+        this.props.dispatch( fetchUsers() );
+        console.log( this.props );
+    }
+
     render() {
+        const userData = [];
         const users = userData.map(
                 (data, i) => <WindowChat key={i} {...data}/>
             );
@@ -22,4 +27,8 @@ class Index extends React.Component {
     }
 }
 
-export default Index;
+const mapStateToProp = state => ({
+    userData: state
+});
+
+export default connect(mapStateToProp)(Index);

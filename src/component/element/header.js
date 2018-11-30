@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ButtonIconAdd from './buttonicon/buttoniconadd';
-import * as Types from './../../reduxStore/types';
+import { newUser } from './../../reduxStore/actions';
 
 import './../../style/element/header.scss';
 
@@ -29,10 +29,7 @@ class Header extends React.Component {
         const un = this.state.username;
 
         if(un.length > 0) {
-            this.props.dispatch({
-                type: Types.NEWUSER,
-                username: un
-            });
+            this.props.dispatch( newUser(un) );
         }
     }
 
@@ -49,8 +46,8 @@ class Header extends React.Component {
     }
 };
 
-const mapStateToProp = state => {
-    return {username: state.username};
-};
+const mapStateToProp = state => ({
+    username: state.username
+});
 
 export default connect(mapStateToProp)(Header);
