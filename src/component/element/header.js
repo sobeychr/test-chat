@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import ButtonIconAdd from './buttonicon/buttoniconadd';
-import { newUser } from './../../redux/useraction';
+import { newUser } from './../../redux/actions';
 
 import './../../style/element/header.scss';
 
@@ -26,10 +25,8 @@ class Header extends React.Component {
 
     handleUserSubmit(event) {
         event.preventDefault();
-        //this.props.store.dispatch(newUser());
-
         const un = this.state.username;
-        
+        newUser(un);
     }
 
     render() {

@@ -4,7 +4,8 @@ import WindowChat from './../element/window/windowchat.js';
 
 import './../../style/page/index.scss';
 
-const userData = require('./../../data/user.json');
+// const userData = require('./../../data/user.json');
+const userData = [];
 
 class Index extends React.Component {
     render() {
