@@ -13,5 +13,3 @@ render(<Provider store={store}>
         <Routes />
     </Provider>,
 app);
-
-store.dispatch( newUser('alpha') );

@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ButtonIconAdd from './buttonicon/buttoniconadd';
 import { newUser } from './../../redux/actions';
 
 import './../../style/element/header.scss';
 
+connect()
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,11 @@ class Header extends React.Component {
     handleUserSubmit(event) {
         event.preventDefault();
         const un = this.state.username;
-        newUser(un);
+
+        if(un.length > 0) {
+            console.log('handleUserSubmit', un, '! incomplete');
+            //this.props.dispatch( newUser(un) );
+        }
     }
 
     render() {
