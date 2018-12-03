@@ -1,5 +1,6 @@
 @import './../../global';
 
+$nameFontSize: 24px;
 $radius: 7px;
 
 .windowchat {
@@ -9,7 +10,7 @@ $radius: 7px;
     position: absolute;
 
     .user {
-        @include fRoundTop($radius);
+        @include mRoundTop($radius);
         background: $bgColor3;
 
         .buttonicondrag {
@@ -20,9 +21,12 @@ $radius: 7px;
 
         .name {
             color: $linkColor1;
-            font-size: 24px;
+            display: inline-block;
+            font-size: $nameFontSize;
             margin-left: 10px;
+            margin-top: fMiddle($avatarNewHeight, $nameFontSize);
             text-transform: uppercase;
+            vertical-align: top;
         }
     }
 }

@@ -8,7 +8,7 @@ const avatarData = require('./../../../data/avatar.json');
 class WindowAvatar extends React.Component {
     getColumn() {
         const imgCount = this.getImg() * this.getMaxavatarData(),
-              rowCount = this.getRow() * avatarData.rows,
+              rowCount = this.getRow() * avatarData.avatarRows,
               counter = this.props.id - imgCount - rowCount;
         return counter;
     }
@@ -16,18 +16,18 @@ class WindowAvatar extends React.Component {
         return Math.floor(this.props.id / this.getMaxavatarData());
     }
     getMaxavatarData() {
-        return avatarData.columns * avatarData.rows;
+        return avatarData.avatarColumns * avatarData.avatarRows;
     }
     getRow() {
         const imgCount = this.getImg() * this.getMaxavatarData(),
               counter = this.props.id - imgCount;
-        return Math.floor(counter / avatarData.rows);
+        return Math.floor(counter / avatarData.avatarRows);
     }
 
     render() {
         const className = 'windowavatar' + this.getImg(),
-              posX = -1 * avatarData.newWidth  * this.getColumn(),
-              posY = -1 * avatarData.newHeight * this.getRow(),
+              posX = -1 * avatarData.avatarNewWidth  * this.getColumn(),
+              posY = -1 * avatarData.avatarNewHeight * this.getRow(),
               style = {
                 backgroundPosition: posX + 'px ' + posY + 'px'
               };

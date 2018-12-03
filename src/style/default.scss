@@ -46,7 +46,7 @@ textarea {
         font-style: italic;
     }
 
-    @include fPlaceholder {
+    @include mPlaceholder {
         color: $color4;
         text-indent: 3px;
     }

@@ -1,12 +1,12 @@
 {
-    "columns": 6,
-    "rows":    6,
+    "avatarColumns": 6,
+    "avatarRows":    6,
 
-    "baseHeight": 90,
-    "baseWidth":  90,
+    "avatarBaseHeight": 90,
+    "avatarBaseWidth":  90,
 
-    "newHeight": 40,
-    "newWidth":  40,
+    "avatarNewHeight": 40,
+    "avatarNewWidth":  40,
 
-    "exclude": [71, 72]
+    "avatarExclude": [71, 72]
 }

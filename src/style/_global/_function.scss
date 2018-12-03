@@ -1,13 +1,3 @@
-@import './functions/fround';
-
-@mixin fPlaceholder() {
-    &::-webkit-input-placeholder {
-        @content;
-    }
-    &:-ms-input-placeholder{
-        @content;
-    }
-    &::placeholder {
-        @content;
-    }
+@function fMiddle($totalSize, $elementSize) {
+    @return ($totalSize - $elementSize) * 0.5;
 }
