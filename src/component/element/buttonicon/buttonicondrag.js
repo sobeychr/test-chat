@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { IoIosKeypad } from 'react-icons/io';
 
 import './../../../style/element/buttonicon/buttonicondrag.scss';
@@ -13,7 +12,3 @@ const ButtonIconDrag = () => (
 );
 
 export default ButtonIconDrag;
-
-ButtonIconDrag.propTypes = {
-
-};

@@ -25,7 +25,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProp = state => ({
-    userData: state
+    userData: state.user
 });
 
 export default connect(mapStateToProp)(Index);
