@@ -1,7 +1,7 @@
 import * as Types from './types';
 
-// const startingUsers = require('./../data/user.json');
-const startingUsers = [];
+const startingUsers = require('./../data/user.json');
+// const startingUsers = [];
 
 const defaultUser = {
     id: 0,

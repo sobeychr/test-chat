@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
 
 import './../../../style/element/window/windowchat.scss';
@@ -14,10 +15,11 @@ const WindowChat = ({name, avatar, status, window}) => {
     };
 
     return (
-        <div className="windowchat" style={styles}>
-            <div className="name">
+        <div className='windowchat' style={styles}>
+            <div className="user">
+                <ButtonIconDrag />
                 <WindowAvatar id={avatar} />
-                {name}
+                <span className="name">{name}</span>
             </div>
             <pre>chat window</pre>
         </div>

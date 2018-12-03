@@ -5,7 +5,7 @@ import { IoIosAddCircleOutline, IoIosAddCircle } from 'react-icons/io';
 import './../../../style/element/buttonicon/buttoniconadd.scss';
 
 const ButtonIconAdd = ({label, onClick}) => (
-    <button className="buttonicon buttoniconadd" onClick={onClick}>
+    <button className="buttonicon buttonicon-click buttoniconadd" onClick={onClick}>
         <i className="icon">
             <IoIosAddCircleOutline className="out"/>
             <IoIosAddCircle className="hover"/>
@@ -17,5 +17,6 @@ const ButtonIconAdd = ({label, onClick}) => (
 export default ButtonIconAdd;
 
 ButtonIconAdd.propTypes = {
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func
 };

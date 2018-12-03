@@ -1,0 +1,10 @@
+@import './default';
+
+.buttonicondrag {
+    color: $linkColor0;
+    cursor: move;
+
+    &:active {
+        color: $linkColor1;
+    }
+}

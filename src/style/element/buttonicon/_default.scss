@@ -9,22 +9,20 @@
     padding: 2px 5px;
     outline: none;
 
-    &:hover {
-        
-    }
-
     .icon {
         margin-right: 3px;
     }
 
-    &:hover {
-        .icon .out {
-            display: none;
+    &-click {
+        &:hover {
+            .icon .out {
+                display: none;
+            }
         }
-    }
-    &:not(:hover) {
-        .icon .hover {
-            display: none;
+        &:not(:hover) {
+            .icon .hover {
+                display: none;
+            }
         }
     }
 }

@@ -1,10 +1,28 @@
+@import './../../global';
+
+$radius: 7px;
+
 .windowchat {
-    border: 3px solid #f00;
-    border-radius: 10px;
+    border: 1px solid #fff;
+    border-radius: $radius;
+    box-shadow: 0 0 3px #fff;
     position: absolute;
 
-    .name {
-        background: #00F;
-        font: bold 14px #fff;
+    .user {
+        @include fRoundTop($radius);
+        background: $bgColor3;
+
+        .buttonicondrag {
+            font-size: 20px;
+            margin-top: 5px;
+            vertical-align: top;
+        }
+
+        .name {
+            color: $linkColor1;
+            font-size: 24px;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
     }
 }

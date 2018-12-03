@@ -9,7 +9,6 @@ import './../../style/page/index.scss';
 class Index extends React.Component {
     componentDidMount() {
         this.props.dispatch( fetchUsers() );
-        console.log( this.props );
     }
 
     render() {
