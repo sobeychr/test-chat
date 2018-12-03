@@ -4,7 +4,8 @@
     color: $linkColor0;
     cursor: move;
 
-    &:active {
+    &:active,
+    &:hover {
         color: $linkColor1;
     }
 }

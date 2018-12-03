@@ -4,38 +4,29 @@
         "name": "John",
         "avatar": 1,
         "status": 1,
-
-        "window": {
-            "x": 0,
-            "y": 50,
-            "width": 200,
-            "height": 200
-        }
+        "x": 0,
+        "y": 0,
+        "width": 200,
+        "height": 200
     },
     {
         "id": 2,
         "name": "Cena",
         "avatar": 25,
         "status": 1,
-
-        "window": {
-            "x": 205,
-            "y": 50,
-            "width": 200,
-            "height": 200
-        }
+        "x": 205,
+        "y": 0,
+        "width": 200,
+        "height": 200
     },
     {
         "id": 3,
         "name": "Mark",
         "avatar": 250,
         "status": 1,
-
-        "window": {
-            "x": 410,
-            "y": 50,
-            "width": 200,
-            "height": 200
-        }
+        "x": 410,
+        "y": 0,
+        "width": 200,
+        "height": 200
     }
 ]

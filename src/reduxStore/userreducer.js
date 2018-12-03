@@ -8,18 +8,35 @@ const defaultUser = {
     name: "",
     avatar: 1,
     status: 1,
-    window: {
-        x: 0,
-        y: 50,
-        width: 200,
-        height: 200
-    }
+    x: 0,
+    y: 50,
+    width: 200,
+    height: 200
+};
+
+const updateUser = (list, props) => {
+    const { id } = props;
+    const newList = [];
+
+    list.forEach(entry => {
+        if(entry.id === id) {
+            newList.push( {...entry, ...props} );
+        }
+        else {
+            newList.push(entry);
+        }
+    });
+
+    return newList;
 };
 
 const UserReducer = (state=startingUsers, action) => {
     const type = action.type;
 
-    if(type === Types.FETCHUSER) {
+    if(type === Types.ENDDRAG) {
+        return updateUser(state, action.payload);
+    }
+    else if(type === Types.FETCHUSER) {
         return [...state];
     }
     else if(type === Types.NEWUSER) {
