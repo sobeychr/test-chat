@@ -1,12 +1,12 @@
 import React from 'react';
-import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
+import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
 import WindowMessage from './windowmessage';
-import { endDrag, fetchMessages } from './../../../reduxStore/actions';
+import { endDrag } from './../../../reduxStore/actions';
 
 import './../../../style/element/window/windowchat.scss';
 
@@ -14,10 +14,6 @@ class WindowChat extends React.Component {
     constructor(props) {
         super(props);
         this.dragStop = this.dragStop.bind(this);
-    }
-
-    componentDidMount() {
-        this.props.dispatch( fetchMessages() );
     }
 
     dragStop(event, data) {
@@ -47,8 +43,8 @@ class WindowChat extends React.Component {
             height
         };
 
-        const messages = this.props.messageData.map(
-                (data, i) => <WindowMessage key={i} {...data}/>
+        const messages = this.props.message.map(
+                (data, i) => <WindowMessage key={i} {...data} />
             );
 
         return (
@@ -68,11 +64,7 @@ class WindowChat extends React.Component {
     }
 }
 
-const mapStateToProp = state => ({
-    messageData: state.message
-});
-
-export default connect(mapStateToProp)(WindowChat);
+export default connect()(WindowChat);
 
 WindowChat.defaultProps = {
     id: 0,
@@ -82,7 +74,8 @@ WindowChat.defaultProps = {
     x: 50,
     y: 50,
     width: 200,
-    height: 200
+    height: 200,
+    message: []
 };
 WindowChat.propTypes = {
     id: PropTypes.number.isRequired,
@@ -92,5 +85,6 @@ WindowChat.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    message: PropTypes.array
 };
