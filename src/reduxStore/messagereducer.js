@@ -9,6 +9,14 @@ const MessageReducer = (state=startingMessages, action) => {
     if(type === Types.FETCHMESSAGE) {
         return [...state];
     }
+    else if(type === Types.NEWMESSAGE) {
+        const payload = action.payload;
+        const timestamp = Date.now();
+
+        return [...state,
+            { ...payload, timestamp }
+        ];
+    }
     
     return state;
 };

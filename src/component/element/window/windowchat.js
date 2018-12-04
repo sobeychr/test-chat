@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
+import WindowInput from './windowinput';
 import WindowMessage from './windowmessage';
 import { endDrag } from './../../../reduxStore/actions';
 
@@ -58,6 +59,7 @@ class WindowChat extends React.Component {
                     <div className="message">
                         {messages}
                     </div>
+                    <WindowInput />
                 </div>
             </Draggable>
         );

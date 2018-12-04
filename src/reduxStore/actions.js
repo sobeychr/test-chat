@@ -13,6 +13,11 @@ export const fetchUsers = () => ({
     type: Types.FETCHUSER
 });
 
+export const newMessage = (from, message) => ({
+    type: Types.NEWMESSAGE,
+    payload: { from, message }
+});
+
 export const newUser = name => ({
     type: Types.NEWUSER,
     payload: { name }

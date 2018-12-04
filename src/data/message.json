@@ -2,16 +2,16 @@
     {
         "from": 1,
         "text": "testing",
-        "time": 1543878597
+        "time": 1543878597000
     },
     {
         "from": 2,
         "text": "alpha",
-        "time": 1543878697
+        "time": 1543878697000
     },
     {
         "from": 3,
         "text": "marcel leboeuf",
-        "time": 1543878700
+        "time": 1543878700000
     }
 ]
