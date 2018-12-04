@@ -44,7 +44,7 @@ class WindowChat extends React.Component {
             height
         };
 
-        const messages = this.props.message.map(
+        const messages = this.props.messageData.map(
                 (data, i) => <WindowMessage key={i} {...data} />
             );
 
@@ -77,7 +77,7 @@ WindowChat.defaultProps = {
     y: 50,
     width: 200,
     height: 200,
-    message: []
+    messageData: []
 };
 WindowChat.propTypes = {
     id: PropTypes.number.isRequired,
@@ -88,5 +88,5 @@ WindowChat.propTypes = {
     y: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    message: PropTypes.array
+    messageData: PropTypes.array
 };
