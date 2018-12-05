@@ -1,5 +1,16 @@
+@import './../../global';
+
 .windowmessage {
     display: block;
-    font-size: 10px;
+    font: normal 12px/1 $font0;
     margin: 5px;
+
+    .text {
+        background: $bgColor0;
+        border-radius: 5px;
+        display: inline-block;
+        margin-left: 5px;
+        padding: 5px;
+        vertical-align: top;
+    }
 }

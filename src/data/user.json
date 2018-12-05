@@ -1,32 +1,44 @@
-[
-    {
-        "id": 1,
-        "name": "John",
-        "avatar": 1,
-        "status": 1,
-        "x": 0,
-        "y": 0,
-        "width": 200,
-        "height": 200
+{
+    "default": {
+            "id": 0,
+            "name": "0",
+            "avatar": 0,
+            "status": 0,
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 400
     },
-    {
-        "id": 2,
-        "name": "Cena",
-        "avatar": 25,
-        "status": 1,
-        "x": 205,
-        "y": 0,
-        "width": 200,
-        "height": 200
-    },
-    {
-        "id": 3,
-        "name": "Mark",
-        "avatar": 250,
-        "status": 1,
-        "x": 410,
-        "y": 0,
-        "width": 200,
-        "height": 200
-    }
-]
+    "starting": [
+        {
+            "id": 1,
+            "name": "John",
+            "avatar": 1,
+            "status": 1,
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 400
+        },
+        {
+            "id": 2,
+            "name": "Cena",
+            "avatar": 25,
+            "status": 1,
+            "x": 410,
+            "y": 0,
+            "width": 400,
+            "height": 400
+        },
+        {
+            "id": 3,
+            "name": "Mark",
+            "avatar": 250,
+            "status": 1,
+            "x": 0,
+            "y": 410,
+            "width": 400,
+            "height": 400
+        }
+    ]
+}

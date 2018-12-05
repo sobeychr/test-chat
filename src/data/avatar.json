@@ -1,9 +1,9 @@
 {
-    "avatarColumns": 6,
-    "avatarRows":    6,
+    "maxColumns": 6,
+    "maxRows":    6,
 
-    "avatarBaseHeight": 90,
-    "avatarBaseWidth":  90,
+    "height": 90,
+    "width":  90,
 
-    "avatarExclude": [71, 72]
+    "exclude": [71, 72]
 }

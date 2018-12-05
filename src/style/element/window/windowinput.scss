@@ -1,11 +1,10 @@
 @import './../../global';
 
-$height: 20px;
 $radius: 7px;
 
 .windowinput {
     bottom: $inputPadding * 2 + 2px;
-    height: $height;
+    height: 20px;
     left: 0;
     position: absolute;
     width: 100%;

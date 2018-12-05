@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import store from './../../../reduxStore';
 import { endDrag } from './../../../reduxStore/actions';
 
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
@@ -12,6 +11,9 @@ import WindowInput from './windowinput';
 import WindowMessage from './windowmessage';
 
 import './../../../style/element/window/windowchat.scss';
+
+const userData    = require('./../../../data/user.json');
+const userDefault = userData.default;
 
 class WindowChat extends React.Component {
     constructor(props) {
@@ -30,7 +32,6 @@ class WindowChat extends React.Component {
 
     render() {
         const {avatar, name, x, y, width, height} = this.props;
-
         const avatarSize = 40;
 
         const dragConfig = {
@@ -43,25 +44,27 @@ class WindowChat extends React.Component {
             onStop: this.dragStop
         };
 
-        const styles = {
+        const chatStyles = {
             width,
             height
         };
+        const messageStyles = {
+            height: height - avatarSize - 34
+        };
 
-        const storeState = store.getState();
-        const messages = storeState.message.map(
-                (data, i) => <WindowMessage key={i} {...data} />
+        const messages = this.props.messageData.map(
+                (data, i) => <WindowMessage key={i} {...data} windowWidth={width} />
             );
 
         return (
             <Draggable {...dragConfig}>
-                <div className='windowchat' style={styles}>
+                <div className='windowchat' style={chatStyles}>
                     <div className="user">
                             <ButtonIconDrag />
                         <WindowAvatar id={avatar} height={avatarSize} width={avatarSize} />
                         <span className="name">{name}</span>
                     </div>
-                    <div className="message">
+                    <div className="message" style={messageStyles}>
                         {messages}
                     </div>
                     <WindowInput />
@@ -73,15 +76,7 @@ class WindowChat extends React.Component {
 
 export default connect()(WindowChat);
 
-WindowChat.defaultProps = {
-    id: 0,
-    name: "",
-    avatar: 0,
-    status: 0,
-    x: 50,
-    y: 50,
-    width: 200,
-    height: 200,
+WindowChat.defaultProps = {...userDefault,
     messageData: []
 };
 WindowChat.propTypes = {

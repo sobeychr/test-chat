@@ -9,9 +9,9 @@ export const init = () => ({
     type: Types.INIT
 });
 
-export const newMessage = (from, text) => ({
+export const newMessage = (userid, text) => ({
     type: Types.NEWMESSAGE,
-    payload: { from, text }
+    payload: { userid, text }
 });
 
 export const newUser = name => ({

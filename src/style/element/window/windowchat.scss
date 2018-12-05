@@ -23,10 +23,13 @@ $radius: 7px;
             color: $linkColor1;
             display: inline-block;
             font-size: $nameFontSize;
-            margin-left: 10px;
-            //margin-top: fMiddle($avatarNewHeight, $nameFontSize);
+            margin: 8px 0 0 10px;
             text-transform: uppercase;
             vertical-align: top;
         }
+    }
+
+    .message {
+        overflow-y: auto;
     }
 }

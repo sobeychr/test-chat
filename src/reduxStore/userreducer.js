@@ -1,18 +1,9 @@
 import * as Types from './types';
 
-const startingUsers = require('./../data/user.json');
-// const startingUsers = [];
+const userData = require('./../data/user.json');
 
-const defaultUser = {
-    id: 0,
-    name: "",
-    avatar: 1,
-    status: 1,
-    x: 0,
-    y: 50,
-    width: 200,
-    height: 200
-};
+const defaultUser   = userData.default;
+const startingUsers = userData.starting;
 
 const updateUser = (list, props) => {
     const { id } = props;
@@ -35,6 +26,9 @@ const UserReducer = (state=startingUsers, action) => {
 
     if(type === Types.ENDDRAG) {
         return updateUser(state, action.payload);
+    }
+    else if(type === Types.INIT) {
+        return [...state];
     }
     else if(type === Types.NEWUSER) {
         const name = action.name;
