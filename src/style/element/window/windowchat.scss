@@ -24,7 +24,7 @@ $radius: 7px;
             display: inline-block;
             font-size: $nameFontSize;
             margin-left: 10px;
-            margin-top: fMiddle($avatarNewHeight, $nameFontSize);
+            //margin-top: fMiddle($avatarNewHeight, $nameFontSize);
             text-transform: uppercase;
             vertical-align: top;
         }

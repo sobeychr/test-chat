@@ -5,8 +5,5 @@
     "avatarBaseHeight": 90,
     "avatarBaseWidth":  90,
 
-    "avatarNewHeight": 40,
-    "avatarNewWidth":  40,
-
     "avatarExclude": [71, 72]
 }

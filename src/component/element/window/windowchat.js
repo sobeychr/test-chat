@@ -29,6 +29,8 @@ class WindowChat extends React.Component {
     render() {
         const {avatar, name, x, y, width, height} = this.props;
 
+        const avatarSize = 40;
+
         const dragConfig = {
             defaultPosition: {
                 x,
@@ -53,7 +55,7 @@ class WindowChat extends React.Component {
                 <div className='windowchat' style={styles}>
                     <div className="user">
                             <ButtonIconDrag />
-                        <WindowAvatar id={avatar} />
+                        <WindowAvatar id={avatar} height={avatarSize} width={avatarSize} />
                         <span className="name">{name}</span>
                     </div>
                     <div className="message">

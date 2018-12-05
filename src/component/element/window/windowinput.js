@@ -28,6 +28,9 @@ class WindowInput extends React.Component {
                 1,
                 this.state.message
             ));
+        this.setState({
+            message: ''
+        });
     }
 
     render() {

@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import WindowAvatar from './windowavatar';
+
 import './../../../style/element/window/windowmessage.scss';
 
-const WindowMessage = ({from, text, timestamp}) => (
-    <div className="windowmessage">
-        {text}
-    </div>
-);
+const WindowMessage = ({from, text, timestamp}) => {
+
+    
+    
+    return (
+        <div className="windowmessage">
+            <WindowAvatar id={from} />
+            {text}
+        </div>
+    );
+};
 
 export default WindowMessage;
 
