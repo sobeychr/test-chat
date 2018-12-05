@@ -5,12 +5,8 @@ export const endDrag = (id, x, y) => ({
     payload: { id, x, y }
 });
 
-export const fetchMessages = () => ({
-    type: Types.FETCHMESSAGE
-});
-
-export const fetchUsers = () => ({
-    type: Types.FETCHUSER
+export const init = () => ({
+    type: Types.INIT
 });
 
 export const newMessage = (from, text) => ({

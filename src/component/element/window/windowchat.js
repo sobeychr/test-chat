@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
+import store from './../../../reduxStore';
+import { endDrag } from './../../../reduxStore/actions';
+
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
 import WindowInput from './windowinput';
 import WindowMessage from './windowmessage';
-import { endDrag } from './../../../reduxStore/actions';
 
 import './../../../style/element/window/windowchat.scss';
 
@@ -46,7 +48,8 @@ class WindowChat extends React.Component {
             height
         };
 
-        const messages = this.props.messageData.map(
+        const storeState = store.getState();
+        const messages = storeState.message.map(
                 (data, i) => <WindowMessage key={i} {...data} />
             );
 

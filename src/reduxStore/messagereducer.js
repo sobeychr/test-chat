@@ -6,10 +6,7 @@ const startingMessages = require('./../data/message.json');
 const MessageReducer = (state=startingMessages, action) => {
     const type = action.type;
 
-    if(type === Types.FETCHMESSAGE) {
-        return [...state];
-    }
-    else if(type === Types.NEWMESSAGE) {
+    if(type === Types.NEWMESSAGE) {
         const payload = action.payload;
         const timestamp = Date.now();
 

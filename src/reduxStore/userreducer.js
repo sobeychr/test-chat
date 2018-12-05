@@ -36,9 +36,6 @@ const UserReducer = (state=startingUsers, action) => {
     if(type === Types.ENDDRAG) {
         return updateUser(state, action.payload);
     }
-    else if(type === Types.FETCHUSER) {
-        return [...state];
-    }
     else if(type === Types.NEWUSER) {
         const name = action.name;
         return [...state,
