@@ -4,9 +4,9 @@ $nameFontSize: 24px;
 $radius: 7px;
 
 .windowchat {
-    border: 1px solid #fff;
+    border: 1px solid $color0;
     border-radius: $radius;
-    box-shadow: 0 0 3px #fff;
+    box-shadow: 0 0 3px $color0;
     position: absolute;
 
     .user {
@@ -30,6 +30,22 @@ $radius: 7px;
     }
 
     .message {
+        background: $bgColor2;
+        padding: 7px 0;
         overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+        &::-webkit-scrollbar-track {
+            background: $bgColor0; 
+        }
+        &::-webkit-scrollbar-thumb {
+            background: $linkColor0;
+
+            &:hover {
+                background: $linkColor1;
+            }
+        }
     }
 }

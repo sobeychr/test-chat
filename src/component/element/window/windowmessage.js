@@ -21,8 +21,10 @@ const WindowMessage = ({userid, text, timestamp, windowWidth}) => {
     const avatarId = getAvatarId(userid);
     const avatarSize = 20;
 
+    const scrollMargin = 35;
+
     const styles = {
-        width: windowWidth - avatarSize - 35
+        width: windowWidth - avatarSize - scrollMargin
     };
 
     return (

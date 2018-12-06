@@ -2,8 +2,12 @@
 
 .windowmessage {
     display: block;
-    font: normal 12px/1 $font0;
+    font: normal 12px/1.5 $font0;
     margin: 5px;
+
+    &:nth-child(n + 2) {
+        margin-top: 10px;
+    }
 
     .text {
         background: $bgColor0;

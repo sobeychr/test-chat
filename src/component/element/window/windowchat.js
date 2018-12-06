@@ -35,6 +35,12 @@ class WindowChat extends React.Component {
         const avatarSize = 40;
 
         const dragConfig = {
+            bounds: {
+                left: 0,
+                right: 1500,
+                top: 0,
+                bottom: 800
+            },
             defaultPosition: {
                 x,
                 y
@@ -49,7 +55,7 @@ class WindowChat extends React.Component {
             height
         };
         const messageStyles = {
-            height: height - avatarSize - 34
+            height: height - avatarSize - 49
         };
 
         const messages = this.props.messageData.map(
