@@ -22,16 +22,17 @@ const updateUser = (list, props) => {
 };
 
 const UserReducer = (state=startingUsers, action) => {
+    const payload = action.payload || {};
     const type = action.type;
 
     if(type === Types.ENDDRAG) {
-        return updateUser(state, action.payload);
+        return updateUser(state, payload);
     }
     else if(type === Types.INIT) {
         return [...state];
     }
     else if(type === Types.NEWUSER) {
-        const name = action.name;
+        const name = payload.name;
         return [...state,
             {...defaultUser,
                 id: state.length + 1,

@@ -8,7 +8,10 @@ import WindowAvatar from './windowavatar';
 
 import './../../../style/element/window/windowmessage.scss';
 
-const storeState = store.getState();
+var storeState = store.getState();
+store.subscribe(() => {
+    storeState = store.getState();
+});
 
 const getAvatarId = userid => {
     const users  = storeState.user;
