@@ -17,7 +17,7 @@ const updateUser = (list, props) => {
             newList.push(entry);
         }
     });
-
+    
     return newList;
 };
 
@@ -30,6 +30,9 @@ const UserReducer = (state=startingUsers, action) => {
     }
     else if(type === Types.INIT) {
         return [...state];
+    }
+    else if(type === Types.NEWAVATAR) {
+        return updateUser(state, payload);
     }
     else if(type === Types.NEWUSER) {
         const name = payload.name;

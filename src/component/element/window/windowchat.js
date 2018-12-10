@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import { endDrag } from './../../../reduxStore/actions';
+import { endDrag, newAvatar } from './../../../reduxStore/actions';
 
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
+import WindowAvatarSelect from './windowavatarselect';
 import WindowInput from './windowinput';
 import WindowMessage from './windowmessage';
 
@@ -18,10 +19,37 @@ const userDefault = userData.default;
 class WindowChat extends React.Component {
     constructor(props) {
         super(props);
-        this.dragStop = this.dragStop.bind(this);
+        this.onAvatarClose  = this.onAvatarClose.bind(this);
+        this.onAvatarOpen   = this.onAvatarOpen.bind(this);
+        this.onAvatarSelect = this.onAvatarSelect.bind(this);
+        this.onDragStop = this.onDragStop.bind(this);
+
+        this.state = {
+            avatarOpen: false
+        };
     }
 
-    dragStop(event, data) {
+    onAvatarClose() {
+        this.setState({
+            avatarOpen: false
+        });
+    }
+
+    onAvatarOpen() {
+        this.setState({
+            avatarOpen: true
+        });
+    }
+
+    onAvatarSelect(avatar) {
+        const { id } = this.props;
+        this.props.dispatch(newAvatar(
+            id,
+            avatar
+        ));
+    }
+
+    onDragStop(event, data) {
         const { id, x, y } = this.props;
         this.props.dispatch(endDrag(
             id,
@@ -47,7 +75,7 @@ class WindowChat extends React.Component {
             },
             grid: [5, 5],
             handle: '.buttonicondrag',
-            onStop: this.dragStop
+            onStop: this.onDragStop
         };
 
         const chatStyles = {
@@ -67,13 +95,14 @@ class WindowChat extends React.Component {
                 <div className='windowchat' style={chatStyles}>
                     <div className="user">
                             <ButtonIconDrag />
-                        <WindowAvatar id={avatar} height={avatarSize} width={avatarSize} />
+                        <WindowAvatar id={avatar} height={avatarSize} width={avatarSize} onClick={this.onAvatarOpen} />
                         <span className="name">{name}</span>
                     </div>
                     <div className="message" style={messageStyles}>
                         {messages}
                     </div>
                     <WindowInput id={id} />
+                    <WindowAvatarSelect open={this.state.avatarOpen} onClose={this.onAvatarClose} onSelect={this.onAvatarSelect}/>
                 </div>
             </Draggable>
         );

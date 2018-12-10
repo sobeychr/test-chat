@@ -1,6 +1,7 @@
 {
     "maxColumns": 6,
     "maxRows":    6,
+    "maxImage":   7,
 
     "height": 90,
     "width":  90,

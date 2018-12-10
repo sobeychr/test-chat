@@ -9,6 +9,11 @@ export const init = () => ({
     type: Types.INIT
 });
 
+export const newAvatar = (id, avatar) => ({
+    type: Types.NEWAVATAR,
+    payload: { id, avatar }
+});
+
 export const newMessage = (userid, text) => ({
     type: Types.NEWMESSAGE,
     payload: { userid, text }
