@@ -25,7 +25,7 @@ class WindowInput extends React.Component {
     onSubmit(event) {
         event.preventDefault();
         this.props.dispatch(newMessage(
-                1,
+                this.props.id,
                 this.state.message
             ));
         this.setState({
@@ -48,4 +48,5 @@ export default connect()(WindowInput);
 WindowInput.defaultProps = {
 };
 WindowInput.propTypes = {
+    id: PropTypes.number.isRequired
 };

@@ -16,7 +16,7 @@ const getAvatarId = userid => {
     return user.avatar || 0;
 };
 
-const WindowMessage = ({userid, text, timestamp, windowWidth}) => {
+const WindowMessage = ({self, userid, text, timestamp, windowWidth}) => {
     
     const avatarId = getAvatarId(userid);
     const avatarSize = 20;
@@ -27,12 +27,25 @@ const WindowMessage = ({userid, text, timestamp, windowWidth}) => {
         width: windowWidth - avatarSize - scrollMargin
     };
 
+    const isSelf = self === userid;
+    const textClass = ['text'];
+    if(isSelf) {
+        textClass.push('self');
+    }
+
+    const compoWa   = <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>;
+    const compoText = <span className={textClass.join(' ')} style={styles}>
+            {text}
+        </span>;
+
+    const display = isSelf ? [compoText, compoWa] : [compoWa, compoText];
+    const compoDisplay = display.map(
+            (data, i) => ({...data, key:i})
+        );
+
     return (
         <div className="windowmessage">
-            <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>
-            <span className="text" style={styles}>
-                {text}
-            </span>
+            {compoDisplay}
         </div>
     );
 };
@@ -46,6 +59,7 @@ WindowMessage.defaultProps = {
     windowWidth: 200
 };
 WindowMessage.propTypes = {
+    self: PropTypes.number.isRequired,
     userid: PropTypes.number.isRequired,
     text:   PropTypes.string,
     timestamp: PropTypes.number,

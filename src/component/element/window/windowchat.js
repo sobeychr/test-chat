@@ -31,7 +31,7 @@ class WindowChat extends React.Component {
     }
 
     render() {
-        const {avatar, name, x, y, width, height} = this.props;
+        const {avatar, name, x, y, width, height, id} = this.props;
         const avatarSize = 40;
 
         const dragConfig = {
@@ -59,7 +59,7 @@ class WindowChat extends React.Component {
         };
 
         const messages = this.props.messageData.map(
-                (data, i) => <WindowMessage key={i} {...data} windowWidth={width} />
+                (data, i) => <WindowMessage key={i} {...data} self={id} windowWidth={width} />
             );
 
         return (
@@ -73,7 +73,7 @@ class WindowChat extends React.Component {
                     <div className="message" style={messageStyles}>
                         {messages}
                     </div>
-                    <WindowInput />
+                    <WindowInput id={id} />
                 </div>
             </Draggable>
         );
