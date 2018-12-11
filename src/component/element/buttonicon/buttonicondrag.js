@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoIosKeypad } from 'react-icons/io';
 
-import './../../../style/element/buttonicon/buttonicondrag.scss';
+import 'Style/element/buttonicon/buttonicondrag.scss';
 
 const ButtonIconDrag = () => (
     <button className="buttonicon buttonicondrag">

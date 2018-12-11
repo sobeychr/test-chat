@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { newMessage } from './../../../reduxStore/actions';
+import { newMessage } from 'ReduxStore/actions';
 
-import './../../../style/element/window/windowinput.scss';
+import 'Style/element/window/windowinput.scss';
 
 class WindowInput extends React.Component {
     constructor(props) {

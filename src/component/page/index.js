@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import WindowChat from './../element/window/windowchat';
-import { init } from './../../reduxStore/actions';
+import store from 'ReduxStore';
+import { init } from 'ReduxStore/actions';
 
-import './../../style/page/index.scss';
+import WindowChat from './../element/window/windowchat';
+
+import 'Style/page/index.scss';
 
 class Index extends React.Component {
     componentDidMount() {
@@ -13,7 +15,7 @@ class Index extends React.Component {
 
     render() {
         const messages = this.props.messageData;
-        const users = this.props.userData.map(
+        const users    = this.props.userData.map(
                 (data, i) => <WindowChat key={i} {...data} messageData={messages} />
             );
 

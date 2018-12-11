@@ -40,12 +40,15 @@ module.exports =
                     'style-loader',
                     'css-loader',
                     'sass-loader',
-                    {loader: '@epegzz/sass-vars-loader', options: {
-                        syntax: 'scss',
-                        files: [
-                            path.resolve(__dirname, 'src/data/avatar.json')
-                        ]
-                    }}
+                    {
+                        loader: '@epegzz/sass-vars-loader',
+                        options: {
+                            syntax: 'scss',
+                            files: [
+                                path.resolve(__dirname, 'src/data/avatar.json')
+                            ]
+                        }
+                    }
                 ]
             },
             {
@@ -62,6 +65,12 @@ module.exports =
     },
 
     resolve: {
+        alias: {
+            Data:  path.resolve(__dirname, 'src/data/'),
+            Image: path.resolve(__dirname, 'src/image/'),
+            Style: path.resolve(__dirname, 'src/style/'),
+            ReduxStore: path.resolve(__dirname, 'src/reduxStore/')
+        },
         modules: [
             path.resolve(__dirname, 'src'),
             'node_modules'

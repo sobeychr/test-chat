@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './../../../style/element/window/windowavatarselect.scss';
+import 'Style/element/window/windowavatarselect.scss';
 
 import WindowAvatar from './windowavatar';
 import * as wa from './windowavatar.func';

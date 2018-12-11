@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IoIosAddCircleOutline, IoIosAddCircle } from 'react-icons/io';
 
-import './../../../style/element/buttonicon/buttoniconadd.scss';
+import 'Style/element/buttonicon/buttoniconadd.scss';
 
 const ButtonIconAdd = ({label, onClick}) => (
     <button className="buttonicon buttonicon-click buttoniconadd" onClick={onClick}>

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import store from './../../../reduxStore';
+import store from 'ReduxStore';
 
 import { getColor, getImgId } from './windowavatar.func';
 import WindowAvatar from './windowavatar';
 
-import './../../../style/element/window/windowmessage.scss';
+import 'Style/element/window/windowmessage.scss';
 
 var storeState = store.getState();
 store.subscribe(() => {

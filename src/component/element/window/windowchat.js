@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 
-import { endDrag, newAvatar } from './../../../reduxStore/actions';
+import { endDrag, newAvatar } from 'ReduxStore/actions';
 
 import ButtonIconDrag from './../buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
@@ -11,9 +11,9 @@ import WindowAvatarSelect from './windowavatarselect';
 import WindowInput from './windowinput';
 import WindowMessage from './windowmessage';
 
-import './../../../style/element/window/windowchat.scss';
+import 'Style/element/window/windowchat.scss';
 
-const userData    = require('./../../../data/user.json');
+const userData    = require('Data/user.json');
 const userDefault = userData.default;
 
 class WindowChat extends React.Component {

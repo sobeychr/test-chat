@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ButtonIconAdd from './buttonicon/buttoniconadd';
-import { newUser } from './../../reduxStore/actions';
+import { newUser } from 'ReduxStore/actions';
 
-import './../../style/element/header.scss';
+import 'Style/element/header.scss';
 
 class Header extends React.Component {
     constructor(props) {
