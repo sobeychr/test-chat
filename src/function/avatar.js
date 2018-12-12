@@ -1,4 +1,4 @@
-export const avatarData = require('Data/avatar.json');
+export const avatarData    = require('Data/avatar.json');
 export const avatarPerImg  = avatarData.maxColumns * avatarData.maxRows;
 
 export const getColor = id => avatarData.color[ getImgId(id) ];

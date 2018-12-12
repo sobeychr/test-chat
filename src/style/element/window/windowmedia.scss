@@ -1,0 +1,9 @@
+.windowmedia {
+    &,
+    img,
+    picture,
+    video {
+        display: block;
+        width: 100%;
+    }
+}

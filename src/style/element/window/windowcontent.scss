@@ -1,0 +1,23 @@
+@import '~Style/global';
+
+.windowcontent {
+    background: $bgColor0;
+    border: 1px solid $color3;
+    border-radius: 5px;
+    display: block;
+    padding: 5px;
+    vertical-align: top;
+
+    &-self {
+        margin-right: 5px;
+        float: left;
+    }
+    &:not(&-self) {
+        margin-left: 5px;
+        float: right;
+    }
+
+    &:hover {
+        background: $bgColor1;
+    }
+}

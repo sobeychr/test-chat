@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import 'Style/element/window/windowavatar.scss';
 
-import * as wa from './windowavatar.func';
+import * as wa from 'Function/avatar';
 
 const WindowAvatar = ({id, height, width, onClick}) => {
     const classes = [

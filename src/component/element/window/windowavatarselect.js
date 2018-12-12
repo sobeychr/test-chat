@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import 'Style/element/window/windowavatarselect.scss';
 
 import WindowAvatar from './windowavatar';
-import * as wa from './windowavatar.func';
+import * as wa from 'Function/avatar';
 
 const WindowAvatarSelect = ({open, onClose, onSelect}) => {
 

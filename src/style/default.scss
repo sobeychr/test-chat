@@ -55,3 +55,16 @@ textarea {
 .main {
     position: relative;
 }
+
+.clearfix {
+    &,
+    &:after {
+        clear: both;
+    }
+    
+    &:after,
+    &:before {
+        display: table;
+        content: ' '; 
+    }
+}

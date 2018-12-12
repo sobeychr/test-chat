@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import store from 'ReduxStore';
 
-import { getColor, getImgId } from './windowavatar.func';
+import { getColor, getImgId } from 'Function/avatar';
 import WindowAvatar from './windowavatar';
+import WindowContent from './windowcontent';
 
 import 'Style/element/window/windowmessage.scss';
 
@@ -24,31 +25,14 @@ const WindowMessage = ({self, userid, text, timestamp, windowWidth}) => {
     const avatarId = getAvatarId(userid);
     const avatarSize = 20;
 
-    const scrollMargin = 35;
-
-    const styles = {
-        width: windowWidth - avatarSize - scrollMargin
-    };
-
     const isSelf = self === userid;
-    const textClass = ['text'];
-    if(isSelf) {
-        textClass.push('self');
-    }
-
-    const compoWa   = <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>;
-    const compoText = <span className={textClass.join(' ')} style={styles}>
-            {text}
-        </span>;
-
-    const display = isSelf ? [compoText, compoWa] : [compoWa, compoText];
-    const compoDisplay = display.map(
-            (data, i) => ({...data, key:i})
-        );
+    const scrollMargin = 35;
+    const width = windowWidth - avatarSize - scrollMargin
 
     return (
-        <div className="windowmessage">
-            {compoDisplay}
+        <div className="windowmessage clearfix">
+            <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>
+            <WindowContent content={text} isself={isSelf} width={width}/>
         </div>
     );
 };
