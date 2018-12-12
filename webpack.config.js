@@ -69,8 +69,9 @@ module.exports =
             Data:       path.resolve(__dirname, 'src/data/'),
             Image:      path.resolve(__dirname, 'src/image/'),
             Function:   path.resolve(__dirname, 'src/function/'),
+            ReduxStore: path.resolve(__dirname, 'src/reduxStore/'),
             Style:      path.resolve(__dirname, 'src/style/'),
-            ReduxStore: path.resolve(__dirname, 'src/reduxStore/')
+            Test:       path.resolve(__dirname, 'test/')
         },
         modules: [
             path.resolve(__dirname, 'src'),
