@@ -1,10 +1,10 @@
-import path from 'path';
+import path  from 'path';
 
 module.exports = 
-{    entry: path.join(__dirname,'src','main.js'),
+{    entry: path.join(__dirname, 'src', 'main.js'),
 
     output: {
-        path: path.join(__dirname,'web'),
+        path: path.join(__dirname, 'web'),
         filename: 'src.min.js'
     },
 
@@ -19,10 +19,10 @@ module.exports =
         },
         historyApiFallback: true,
         inline: true,
-        host: 'localhost',
-        https: false,
-        open: true,
-        port: 3000
+        host:   'localhost',
+        https:  false,
+        open:   true,
+        port:   3000
     },
 
     mode: process.env.NODE_ENV || 'development',

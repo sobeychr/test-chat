@@ -25,8 +25,8 @@ const WindowContent = ({content, isSelf, width}) => {
     );
 };
 
-export default WindowContent
-;
+export default WindowContent;
+
 WindowContent.defaultProps = {
     isSelf: false,
     width: 200

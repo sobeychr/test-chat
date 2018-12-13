@@ -1,7 +1,10 @@
 {
-    "cacheDirectory": "/test/tmp/<path>",
+    "cacheDirectory": "<rootDir>/test/tmp/",
+    "moduleNameMapper": {
+        "^Function(.*)$": "<rootDir>/src/function/$1.js"
+    },
     "testMatch": [
-        "test/**/*.js"
+        "<rootDir>/test/**/*.js"
     ],
     "testURL": "http://localhost:3000/",
     "verbose": true

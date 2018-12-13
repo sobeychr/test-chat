@@ -32,7 +32,7 @@ const WindowMessage = ({self, userid, text, timestamp, windowWidth}) => {
     return (
         <div className="windowmessage clearfix">
             <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>
-            <WindowContent content={text} isself={isSelf} width={width}/>
+            <WindowContent content={text} isSelf={isSelf} width={width}/>
         </div>
     );
 };
