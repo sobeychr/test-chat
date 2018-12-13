@@ -1,0 +1,8 @@
+{
+    "cacheDirectory": "/test/tmp/<path>",
+    "testMatch": [
+        "test/**/*.js"
+    ],
+    "testURL": "http://localhost:3000/",
+    "verbose": true
+}
