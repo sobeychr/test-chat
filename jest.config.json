@@ -1,11 +1,15 @@
 {
     "cacheDirectory": "<rootDir>/test/tmp/",
     "moduleNameMapper": {
-        "^Function(.*)$": "<rootDir>/src/function/$1.js"
+        "^Data(.*)$":       "<rootDir>/src/data/$1",
+        "^Image(.*)$":      "<rootDir>/src/image/$1",
+        "^Function(.*)$":   "<rootDir>/src/function/$1.js",
+        "^ReduxStore(.*)$": "<rootDir>/src/reduxStore/$1.js",
+        "^Test(.*)$":       "<rootDir>/test/$1.js"
     },
     "testMatch": [
         "<rootDir>/test/**/*.js"
     ],
     "testURL": "http://localhost:3000/",
-    "verbose": true
+    "verbose": false
 }
