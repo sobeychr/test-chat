@@ -8,7 +8,7 @@
         "^Test(.*)$":       "<rootDir>/test/$1.js"
     },
     "testMatch": [
-        "<rootDir>/test/**/*.js"
+        "<rootDir>/test/**/*.test.js"
     ],
     "testURL": "http://localhost:3000/",
     "verbose": false
