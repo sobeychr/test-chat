@@ -9,13 +9,13 @@
     },
     "scripts": {
         "build": "babel-node ./node_modules/webpack/bin/webpack",
-        "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server"
+        "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server",
+        "test":  "jest --config=jest.config.json"
     },
     "private": true,
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@babel/core": "7.1.5",
         "@babel/node": "7.0.0",
         "@babel/plugin-proposal-class-properties": "7.1.0",
         "@babel/preset-env": "7.1.5",
@@ -24,27 +24,33 @@
         "babel-loader": "8.0.4",
         "css-loader": "1.0.1",
         "file-loader": "2.0.0",
-        "identity-obj-proxy": "^3.0.0",
+        "identity-obj-proxy": "3.0.0",
         "node-sass": "4.10.0",
         "path": "0.12.7",
         "prop-types": "15.6.2",
         "react": "16.6.1",
         "react-dom": "16.6.1",
-        "react-draggable": "^3.0.5",
+        "react-draggable": "3.0.5",
         "react-icons": "3.2.2",
-        "react-redux": "^5.1.1",
+        "react-redux": "5.1.1",
         "react-router-dom": "4.3.1",
         "react-test-renderer": "16.6.3",
         "redux": "4.0.1",
-        "redux-devtools": "^3.4.1",
-        "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.3.0",
-        "regenerator-runtime": "0.12.1",
+        "redux-devtools": "3.4.1",
+        "redux-logger": "3.0.6",
+        "redux-thunk": "2.3.0",
         "sass-loader": "7.1.0",
-        "source-map-loader": "^0.2.4",
+        "source-map-loader": "0.2.4",
         "style-loader": "0.23.1",
         "webpack": "4.25.1",
         "webpack-cli": "3.1.2",
         "webpack-dev-server": "3.1.10"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.1.5",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^23.6.0",
+        "jest": "^23.6.0",
+        "regenerator-runtime": "^0.12.1"
     }
 }

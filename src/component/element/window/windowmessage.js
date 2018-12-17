@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import store from 'ReduxStore';
 
-import { getColor, getImgId } from 'Function/avatar';
 import WindowAvatar from './windowavatar';
 import WindowContent from './windowcontent';
 
@@ -32,7 +31,7 @@ const WindowMessage = ({self, userid, text, timestamp, windowWidth}) => {
     return (
         <div className="windowmessage clearfix">
             <WindowAvatar id={avatarId} height={avatarSize} width={avatarSize}/>
-            <WindowContent content={text} isself={isSelf} width={width}/>
+            <WindowContent content={text} isSelf={isSelf} width={width}/>
         </div>
     );
 };
