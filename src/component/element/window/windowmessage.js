@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import store from 'ReduxStore';
 
-import { getColor, getImgId } from 'Function/avatar';
 import WindowAvatar from './windowavatar';
 import WindowContent from './windowcontent';
 
