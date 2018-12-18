@@ -4,38 +4,115 @@ import * as fc from 'Function/avatar';
 const testAvatars = [
     {
         id:  0,
-        col: 0,
-        row: 0,
+        exc: 0,
         img: 0,
-        exc: 0
+        row: 0,
+        col: 0
     },
     {
         id:  4,
-        col: 4,
-        row: 0,
+        exc: 4,
         img: 0,
-        exc: 4
+        row: 0,
+        col: 4
     },
     {
         id:  25,
-        col: 1,
-        row: 4,
+        exc: 25,
         img: 0,
-        exc: 25
+        col: 1,
+        row: 4
+    },
+    {
+        id:  69,
+        exc: 69,
+        img: 1,
+        col: 3,
+        row: 5
+    },
+    {
+        id:  70,
+        exc: 72,
+        img: 2,
+        col: 0,
+        row: 0
+    },
+    {
+        id:  71,
+        exc: 73,
+        img: 2,
+        col: 1,
+        row: 0
     },
     {
         id:  72,
-        col: 2,
-        row: 0,
+        exc: 74,
         img: 2,
-        exc: 74
+        col: 2,
+        row: 0
     },
     {
-        id:  150,
-        col: 2,
-        row: 1,
-        img: 4,
-        exc: 152
+        id:  74,
+        exc: 76,
+        img: 2,
+        col: 4,
+        row: 0
+    },
+    {
+        id:  75,
+        exc: 77,
+        img: 2,
+        col: 5,
+        row: 0
+    },
+    {
+        id:  76,
+        exc: 78,
+        img: 2,
+        col: 0,
+        row: 1
+    },
+    {
+        id:  77,
+        exc: 79,
+        img: 2,
+        col: 1,
+        row: 1
+    },
+    {
+        id:  103,
+        exc: 105,
+        img: 2,
+        col: 3,
+        row: 5
+    },
+    {
+        id:  104,
+        exc: 106,
+        img: 2,
+        col: 4,
+        row: 5
+    },
+    {
+        id:  105,
+        exc: 107,
+        img: 2,
+        col: 5,
+        row: 5
+    },
+    {
+        id:  106,
+        exc: 108,
+        img: 3,
+        col: 0,
+        row: 0
+    },
+    {
+        id:  285,
+        exc: 287,
+        img: 3,
+        col: 0,
+        row: 0
     }
 ];
 

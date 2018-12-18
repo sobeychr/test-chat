@@ -1,10 +1,10 @@
 {
     "maxColumns": 6,
     "maxRows":    6,
-    "maxImage":   7,
+    "maxImage":   8,
 
     "height": 90,
     "width":  90,
 
-    "exclude": [71, 72]
+    "exclude": [70, 71]
 }
