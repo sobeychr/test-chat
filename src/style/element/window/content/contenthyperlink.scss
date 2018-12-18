@@ -1,0 +1,21 @@
+$iconSize: 50px;
+
+.contenthyperlink {
+    display: block;
+
+    span {
+        display: block;
+    }
+
+    .icon {
+        display: inline-block;
+        height: 100%;
+        width: 48%;
+        max-height: $iconSize;
+        max-width: $iconSize;
+
+        &.domain {
+            margin-right: 2%;
+        }
+    }
+}

@@ -6,6 +6,10 @@ import 'Style/element/window/windowavatar.scss';
 import * as wa from 'Function/avatar';
 
 const WindowAvatar = ({id, height, width, onClick}) => {
+    if(!wa.isValid(id)) {
+        return false;
+    }
+
     const classes = [
         'windowavatar',
         'windowavatar' + wa.getImgId(id)

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isMedia } from 'Function/windowcontent';
+import { isHyperlink, isImage, isVideo } from 'Function/windowcontent';
+import { ContentHyperlink } from './content';
 import WindowMedia from './windowmedia';
 
 import 'Style/element/window/windowcontent.scss';
@@ -14,9 +15,10 @@ const WindowContent = ({content, isSelf, width}) => {
     }
     const style = {width};
 
-    const output = isMedia(content)
-        ? <WindowMedia content={content} />
-        : content
+    let output = content;
+    if(isHyperlink(content)) {
+        output = <ContentHyperlink content={content} />;
+    }
 
     return (
         <div className={classes.join(' ')} style={style}>

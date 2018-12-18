@@ -25,3 +25,10 @@ export const getRow = id => {
     const counter  = newId - imgStart;
     return Math.floor(counter / avatarData.maxRows);
 };
+
+export const isValid = id => !isNaN(id)
+    && id >= 0
+    && id < (
+        avatarPerImg * avatarData.maxImage
+        - avatarData.exclude.length
+    );

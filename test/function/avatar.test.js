@@ -106,13 +106,6 @@ const testAvatars = [
         img: 3,
         col: 0,
         row: 0
-    },
-    {
-        id:  285,
-        exc: 287,
-        img: 3,
-        col: 0,
-        row: 0
     }
 ];
 
