@@ -1,7 +1,7 @@
-import path  from 'path';
+import path from 'path';
 
-module.exports = 
-{    entry: path.join(__dirname, 'src', 'main.js'),
+module.exports = {
+    entry: path.join(__dirname, 'src', 'main.js'),
 
     output: {
         path: path.join(__dirname, 'web'),
@@ -13,7 +13,7 @@ module.exports =
         bonjour: true,
         clientLogLevel: 'info',
         compress: true,
-        contentBase: path.join(__dirname,'web'),
+        contentBase: path.join(__dirname, 'web'),
         headers: {
             'X-Custom-Header': 'testing'
         },

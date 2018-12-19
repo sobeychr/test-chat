@@ -1,0 +1,28 @@
+[
+    {
+        "name": "google",
+        "domains": [
+            "google.(a-z){2,3}",
+            "goo.gl"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "imgur",
+        "domains": [
+            "imgur.com"
+        ],
+        "icon":  false,
+        "image": "imgur.png"
+    },
+    {
+        "name": "youtube",
+        "domains": [
+            "youtube.com",
+            "youtu.be"
+        ],
+        "icon":  true,
+        "image": false
+    }
+]

@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IoMdDesktop, IoMdSend } from 'react-icons/io';
 import {
-    IoMdDesktop,
     IoLogoGoogle,
-    IoMdSend
+    IoLogoYoutube
 } from 'react-icons/io';
 
-import { isGoogle } from 'Function/windowcontent';
+import { getDomain } from 'Function/windowcontent';
 
 import 'Style/element/window/content/contenthyperlink.scss';
 
+const domainIcons = {
+    google: IoLogoGoogle,
+    youtube: IoLogoYoutube
+};
 const textLimit = 55;
 
 const ContentHyperlink = ({content}) => {
@@ -19,18 +23,34 @@ const ContentHyperlink = ({content}) => {
         text = text.substring(0, textLimit) + '...';
     }
     
-    const domainClasses = ['icon', 'domain'];
+    let DomainImg = false;
     let DomainObj = IoMdDesktop;
 
-    if(isGoogle(content)) {
-        DomainObj = IoLogoGoogle;
+    const domain = getDomain(content);
+    if(domain) {
+        if(domain.icon) {
+            DomainObj = domainIcons[domain.name];
+        }
+        else if(domain.image) {
+            DomainObj = false;
+
+            //const classes = ['icon', 'domain', 'img', domain.image];
+            //DomainImg = <div className='icon domain img' />;
+
+            const src = './../src/image/contenthyperlink/' + domain.image;
+            DomainImg = <img className='icon domain' src={src} />;
+        }
+    }
+
+    if(DomainObj) {
+        DomainObj = <DomainObj className='icon domain' />;
     }
 
     return (
         <a href={content} target='_blank' className='contenthyperlink'>
             <p>{text}</p>
             <p>
-                <DomainObj className='icon domain' />
+                { DomainImg ? DomainImg : DomainObj }
                 <IoMdSend className='icon send' />
             </p>
         </a>

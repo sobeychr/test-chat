@@ -43,6 +43,7 @@ describe('WindowContent tests', () => {
                     }
                 });
 
+                /*
                 test('isMedia - ' + tExt + ', "' + url + '"', async() => {
                     if(isInvalid) {
                         expect( fc.isMedia(url) ).toBeFalsy();
@@ -51,6 +52,7 @@ describe('WindowContent tests', () => {
                         expect( fc.isMedia(url) ).toBeTruthy();   
                     }
                 });
+                */
 
                 test('isHyperlink - ' + tExt + ', "' + url + '"', async() => {
                     if(isLink) {
