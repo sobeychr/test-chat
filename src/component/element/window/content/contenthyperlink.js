@@ -34,10 +34,7 @@ const ContentHyperlink = ({content}) => {
         else if(domain.image) {
             DomainObj = false;
 
-            //const classes = ['icon', 'domain', 'img', domain.image];
-            //DomainImg = <div className='icon domain img' />;
-
-            const src = './../src/image/contenthyperlink/' + domain.image;
+            const src = require('Image/contenthyperlink/' + domain.image)
             DomainImg = <img className='icon domain' src={src} />;
         }
     }
@@ -61,7 +58,7 @@ export default ContentHyperlink;
 
 ContentHyperlink.defaultProps = {
     content: ''
-};
-ContentHyperlink.propTypes = {
+}
+;ContentHyperlink.propTypes = {
     content: PropTypes.string
 };

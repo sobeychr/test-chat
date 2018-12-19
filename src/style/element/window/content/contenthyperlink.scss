@@ -18,4 +18,12 @@ $iconSize: 50px;
             margin-right: 2%;
         }
     }
+
+    img.domain {
+        filter: url('~Data/image-filter.svg#hyperlink-out');
+
+        &:hover {
+            filter: url('~Data/image-filter.svg#hyperlink-hover');
+        }
+    }
 }

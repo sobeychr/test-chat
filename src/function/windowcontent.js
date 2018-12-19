@@ -37,5 +37,5 @@ export const getDomain = link => {
         const reg = new RegExp('\/{2}(w{3}\.)?(' + domains.join('|') + ')\/');
         return reg.test(link);
     });
-    return domain;
+    return domain || false;
 };
