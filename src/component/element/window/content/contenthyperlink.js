@@ -2,7 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IoMdDesktop, IoMdSend } from 'react-icons/io';
 import {
+    IoLogoDropbox,
+    IoLogoFacebook,
+    IoLogoFlickr,
+    IoLogoGithub,
     IoLogoGoogle,
+    IoLogoInstagram,
+    IoLogoLinkedin,
+    IoLogoNodejs,
+    IoLogoNpm,
+    IoLogoReddit,
+    IoLogoSteam,
+    IoLogoTwitch,
+    IoLogoTwitter,
+    IoLogoVimeo,
     IoLogoYoutube
 } from 'react-icons/io';
 
@@ -11,7 +24,20 @@ import { getDomain } from 'Function/windowcontent';
 import 'Style/element/window/content/contenthyperlink.scss';
 
 const domainIcons = {
-    google: IoLogoGoogle,
+    dropbox:  IoLogoDropbox,
+    facebook: IoLogoFacebook,
+    flickr:   IoLogoFlickr,
+    git:       IoLogoGithub,
+    google:    IoLogoGoogle,
+    instagram: IoLogoInstagram,
+    linkedin: IoLogoLinkedin,
+    node:     IoLogoNodejs,
+    npm:      IoLogoNpm,
+    reddit: IoLogoReddit,
+    steam:  IoLogoSteam,
+    twitch: IoLogoTwitch,
+    twitter: IoLogoTwitter,
+    video:   IoLogoVimeo,
     youtube: IoLogoYoutube
 };
 const textLimit = 55;

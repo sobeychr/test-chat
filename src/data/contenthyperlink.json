@@ -1,5 +1,38 @@
 [
     {
+        "name": "dropbox",
+        "domains": [
+            "dropbox.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "facebook",
+        "domains": [
+            "facebook.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "flickr",
+        "domains": [
+            "flickr.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "git",
+        "domains": [
+            "github.com",
+            "git@github.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
         "name": "google",
         "domains": [
             "google.(a-z){2,3}",
@@ -15,6 +48,82 @@
         ],
         "icon":  false,
         "image": "imgur.png"
+    },
+    {
+        "name": "instagram",
+        "domains": [
+            "instagram.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "linkedin",
+        "domains": [
+            "linkedin.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "node",
+        "domains": [
+            "nodejs.org"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "npm",
+        "domains": [
+            "npmjs.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "reddit",
+        "domains": [
+            "reddit.com",
+            "old.reddit.com",
+            "redd.it"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "steam",
+        "domains": [
+            "steam.com",
+            "store.steampowered.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "twitch",
+        "domains": [
+            "twitch.tv"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "twitter",
+        "domains": [
+            "twitter.com",
+            "help.twitter.com"
+        ],
+        "icon":  true,
+        "image": false
+    },
+    {
+        "name": "vimeo",
+        "domains": [
+            "vimeo.com"
+        ],
+        "icon":  true,
+        "image": false
     },
     {
         "name": "youtube",
