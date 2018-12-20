@@ -57,7 +57,7 @@ const ContentHyperlink = ({content}) => {
         if(domain.image) {
             DomainObj = false;
 
-            const src = require('Image/contenthyperlink/' + domain.image)
+            const src = require('Image/contenthyperlink/' + domain.image);
             DomainImg = <img className='icon domain' src={src} />;
         }
         else {

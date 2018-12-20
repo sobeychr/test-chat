@@ -1,12 +1,15 @@
 import * as Types from './types';
 
-const startingMessages = require('./../data/message.json');
-// const startingMessages = [];
+//const startingMessages = require('./../data/message.json');
+const startingMessages = [];
 
 const MessageReducer = (state=startingMessages, action) => {
     const type = action.type;
 
-    if(type === Types.NEWMESSAGE) {
+    if(type === Types.INIT) {
+        return [...state];
+    }
+    else if(type === Types.NEWMESSAGE) {
         const payload = action.payload;
         const timestamp = Date.now();
 
