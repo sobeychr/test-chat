@@ -21,8 +21,10 @@ $iconSize: 50px;
 
     img.domain {
         filter: url('~Data/image-filter.svg#hyperlink-out');
+    }
 
-        &:hover {
+    &:hover {
+        img.domain {
             filter: url('~Data/image-filter.svg#hyperlink-hover');
         }
     }

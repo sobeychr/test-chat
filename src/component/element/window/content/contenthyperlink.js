@@ -54,14 +54,14 @@ const ContentHyperlink = ({content}) => {
 
     const domain = getDomain(content);
     if(domain) {
-        if(domain.icon) {
-            DomainObj = domainIcons[domain.name];
-        }
-        else if(domain.image) {
+        if(domain.image) {
             DomainObj = false;
 
             const src = require('Image/contenthyperlink/' + domain.image)
             DomainImg = <img className='icon domain' src={src} />;
+        }
+        else {
+            DomainObj = domainIcons[domain.name];
         }
     }
 
