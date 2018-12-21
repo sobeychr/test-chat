@@ -24,4 +24,6 @@ $router->get('/test', function () {
 
 $router->group(['middleware' => 'json'], function() use ($router) {
     $router->get('/message', 'Message@get');
+
+    $router->get('/message/{userid}/{text}', 'Message@post');
 });
