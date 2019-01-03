@@ -20,7 +20,13 @@ class Cors
         $headers = [
             'Access-Control-Allow-Origin'  => $origin,
             'Access-Control-Allow-Methods' => 'GET, POST',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Allow-Headers' => 'Content-Type',
         ];
+
+        if($request->isMethod('OPTIONS')) {
+            return response()->json('{}', 200, $headers);
+        }
     
         $response = $next($request);
         foreach($headers as $key=>$value)

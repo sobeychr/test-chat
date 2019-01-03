@@ -16,9 +16,11 @@ class Json
     public function handle($request, Closure $next)
     {
         $response = $next($request);
+
         $headers = array(
             'Content-Type' => 'application/json; text/plain; charset=UTF-8',
         );
+
         foreach($headers as $key=>$val) {
             $response->header($key, $val);
         }

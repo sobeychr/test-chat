@@ -13,7 +13,6 @@ export const init = () => {
             .then(res => res.json())
             .then(json => {
                 dispatch( initEnd(json) );
-                return json;
             });
     };
 };
@@ -37,9 +36,38 @@ export const newAvatar = (id, avatar) => ({
     payload: { id, avatar }
 });
 
-export const newMessage = (userid, text) => ({
-    type: Types.NEWMESSAGE,
-    payload: { userid, text }
+export const newMessage = (userid, text) => {
+    return dispatch => {
+        dispatch( newMessageInit() );
+
+        const data = {
+            userid, text
+        };
+        const obj = {
+            method: 'POST',
+            cache: 'no-cache',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+
+        console.log('obj', obj);
+        return fetch('http://localhost:3300/message', obj)
+            .then(res => res.json())
+            .then(json => {
+                dispatch( newMessageEnd(json) );
+            });
+    };
+};
+
+const newMessageInit = () => ({
+    type: Types.NEWMES_START
+});
+const newMessageEnd = list => ({
+    type: Types.NEWMES_END,
+    payload: { list }
 });
 
 export const newUser = name => ({

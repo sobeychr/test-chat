@@ -11,21 +11,14 @@
 |
 */
 
-
-$router->get('/', function () use ($router) {
+$router->get('/version', function () use ($router) {
     return $router->app->version();
 });
-
-
-$router->get('/test', function () {
-    return 'test';
-});
-
 
 $router->group(['middleware' => ['json', 'cors']],
     function() use ($router) {
         $router->get('/message',  'Message@get');
-        $router->get('/message/test', 'Message@test');
-        //$router->post('/message', 'Message@post');
+        $router->options('/message', '');
+        $router->post('/message', 'Message@post');
     }
 );

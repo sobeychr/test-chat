@@ -28,7 +28,7 @@ const UserReducer = (state=startingUsers, action) => {
     if(type === Types.ENDDRAG) {
         return updateUser(state, payload);
     }
-    else if(type === Types.INIT) {
+    else if(type === Types.INIT_START) {
         return [...state];
     }
     else if(type === Types.NEWAVATAR) {

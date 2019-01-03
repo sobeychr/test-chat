@@ -25,22 +25,18 @@ class Message extends BaseController
      * @param string $text [Entry of the message]
      * @return string [Messages as JSON string]
      */
-    public function post(int $userid, string $text):string
+    public function post(\Illuminate\Http\Request $request):string
     {
+        $data = $request->all();
+
         $file = $this->getFile();
         $file[] = [
-            'userid' => $userid,
-            'text'   => $text,
+            'userid' => $data['userid'] ?? 0,
+            'text'   => $data['text'] ?? '',
             'time'   => time(),
         ];
+
         return json_encode($file);
-    }
-
-
-    public function test():string
-    {
-        $t++;
-        return '{"test":"testing"}';
     }
 
     /**
