@@ -22,8 +22,10 @@ $router->get('/test', function () {
 });
 
 
-$router->group(['middleware' => 'json'], function() use ($router) {
-    $router->get('/message',  'Message@get');
-    $router->get('/message/test', 'Message@test');
-    //$router->post('/message', 'Message@post');
-});
+$router->group(['middleware' => ['json', 'cors']],
+    function() use ($router) {
+        $router->get('/message',  'Message@get');
+        $router->get('/message/test', 'Message@test');
+        //$router->post('/message', 'Message@post');
+    }
+);

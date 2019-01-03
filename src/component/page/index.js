@@ -14,7 +14,7 @@ class Index extends React.Component {
     }
 
     render() {
-        const messages = this.props.messageData;
+        const messages = this.props.messageData.list;
         const users    = this.props.userData.map(
                 (data, i) => <WindowChat key={i} {...data} messageData={messages} />
             );
