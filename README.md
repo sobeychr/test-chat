@@ -8,6 +8,7 @@ Quick description
 
 - Babel 7.0
 - Jest 23.6
+- Lumen 5.7
 - NPM 6.4
 - React 16.6
 - Redux 4.0
@@ -19,6 +20,7 @@ Global setups are set on the root > _.babelrc_, _.gitignore_, _jest.config.json_
 ### Commands
 
 - Install `npm i`
+- Lumen Server `npm php`
 - Start `npm start`
 - Test `npm t`
 

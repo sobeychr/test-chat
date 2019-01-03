@@ -36,6 +36,13 @@ class Message extends BaseController
         return json_encode($file);
     }
 
+
+    public function test():string
+    {
+        $t++;
+        return '{"test":"testing"}';
+    }
+
     /**
      * Returns the JSON content
      * @return array [JSON content as assoc Array]

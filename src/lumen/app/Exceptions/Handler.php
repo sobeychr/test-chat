@@ -45,6 +45,54 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        //return parent::render($request, $exception);
+        
+        $route = $request->route();
+        $route = $route[1];
+
+        $excFile = $this->cutFile( $exception->getFile() );
+
+        $excTrace = [];
+        $traceIndex = ['line', 'function', 'class', 'type'];
+        $trace = $exception->getTrace();
+        foreach($trace as $entry) {
+            $arr = [];
+
+            if(isset($entry['file'])) {
+                $arr['file'] = $this->cutFile($entry['file']);
+            }
+
+            foreach($traceIndex as $index) {
+                if(isset($entry[$index])) {
+                    $arr[$index] = $entry[$index];
+                }
+            }
+
+            $excTrace[] = $arr;
+        }
+
+        return response()->json([
+            'status'  => 500,
+            'summary' => $exception->getMessage() . ' in ' . $excFile . ' on line ' . $exception->getLine(),
+            'request' => [
+                'method' => $request->method(),
+                'path'   => $request->path(),
+                'route'  => $route,
+            ],
+            'exception' => [
+                'message' => $exception->getMessage(),
+                'file' => $excFile,
+                'line' => $exception->getLine(),
+                'trace' => $excTrace,
+            ],
+        ], 500);
+    }
+
+    protected function cutFile(string $filepath):string
+    {
+        $cut  = 'src\\lumen';
+        $file = strstr($filepath, $cut, false);
+        $file = substr($file, strlen($cut));
+        return $file;
     }
 }
