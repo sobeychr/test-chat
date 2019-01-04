@@ -20,7 +20,6 @@ $router->group(['middleware' => ['json', 'cors']],
 
         $regexps = [
             'id'     => '\d+',
-            //'date'   => '\d{4}\-\d{1,2}\-\d{1,2}\-\d{1,2}\-\d{2}\-\d{2}',
             'date'   => '[\d\-]+',
             'search' => '[\d\w\-]+',
             'word'   => '\w+',
@@ -33,14 +32,16 @@ $router->group(['middleware' => ['json', 'cors']],
         $router->group(['prefix' => 'message'], function() use ($router, $regexps) {
             $router->get('/',  'MessageController@get');
 
-            $router->post('/', 'MessageController@post');
-            $router->options('/', function() {
+            $router->post('/new', 'MessageController@post');
+            $router->options('/new', function() {
                 return response()->json([], 206);
             });
 
-            $router->get('/{id:' . $regexps['id'] . '}', 'MessageController@id');
+            $router->get('/id/{id:' . $regexps['id'] . '}', 'MessageController@id');
+            $router->get('/from/{id:' . $regexps['id'] . '}', 'MessageController@id');
             $router->get('/after/{dateString:' .  $regexps['date'] . '}', 'MessageController@after');
             $router->get('/before/{dateString:' . $regexps['date'] . '}', 'MessageController@before');
+            $router->get('/between/{start:' . $regexps['date'] . '}/{end:' . $regexps['date'] . '}', 'MessageController@between');
             $router->get('/has/{text:' . $regexps['search'] . '}', 'MessageController@has');
         });
 

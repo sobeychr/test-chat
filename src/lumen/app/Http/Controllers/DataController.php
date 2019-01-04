@@ -16,20 +16,10 @@ class DataController extends BaseController
     protected $filepath = '';
 
     /**
-     * Returns the data as List
-     * @return array [Data as List]
+     * Returns the JSON content as Array
+     * @return array [JSON content as Array]
      */
     public function get():array
-    {
-       $file = $this->getFile();
-       return $file;
-    }
-
-    /**
-     * Returns the JSON content as Assoc Array
-     * @return array [JSON content as Assoc Array]
-     */
-    protected function getFile():array
     {
         $str = file_get_contents($this->filepath);
         $arr = json_decode($str, true);
@@ -43,6 +33,22 @@ class DataController extends BaseController
      * @param  bool $single [TRUE to return only 1 entry]
      * @return array [the filtered content as List or the Single Entry]
      */
+    protected function findBetween(string $field, int $min, int $max, bool $single=false):array
+    {
+        $data = $this->get();
+        
+        $data = array_filter($data, function($entry) use ($field, $min, $max) {
+            if(!isset($entry[$field])) {
+                return false;
+            }
+            return $min <= $entry[$field] && $entry[$field] <= $max;
+        });
+
+        $values = array_values($data);
+        return ($single && count($values)===1) ? $values[0] : $values;
+
+        //return $this->filter(self::MATCH_CONTAIN,    $search, $single);
+    }
     protected function contain      (array $search, bool $single=false):array { return $this->filter(self::MATCH_CONTAIN,    $search, $single); }
     protected function find         (array $search, bool $single=false):array { return $this->filter(self::MATCH_EXACT,      $search, $single); }
     protected function greater      (array $search, bool $single=false):array { return $this->filter(self::MATCH_GREATER,    $search, $single); }

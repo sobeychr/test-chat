@@ -12,10 +12,20 @@ class MessageController extends DataController
     // protected function getFile():array
 
     // Various search via API
-    public function id(int $id):array { return $this->find(['userid' => $id]); }
+    public function id(int $id):array   { return $this->find(['id' => $id], true); }
+    public function from(int $id):array { return $this->find(['userid' => $id]); }
 
-    public function after(string $dateString):array  { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
-    public function before(string $dateString):array { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
+    public function after(string $dateString):array   { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
+    public function before(string $dateString):array  { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
+
+    public function between(string $start, string $end):array
+    {
+        return $this->findBetween(
+            'time',
+            $this->parseDateString($start),
+            $this->parseDateString($end)
+        );
+    }
 
     public function has(string $text):array { return $this->contain(['text' => $text]); }
 
