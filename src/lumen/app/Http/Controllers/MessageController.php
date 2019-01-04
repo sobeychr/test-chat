@@ -15,12 +15,12 @@ class MessageController extends DataController
     public function id(int $id):array   { return $this->find(['id' => $id], true); }
     public function from(int $id):array { return $this->find(['userid' => $id]); }
 
-    public function after(string $dateString):array   { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
-    public function before(string $dateString):array  { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
+    public function after(string $dateString):array  { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
+    public function before(string $dateString):array { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
 
     public function between(string $start, string $end):array
     {
-        return $this->findBetween(
+        return $this->filterBetween(
             'time',
             $this->parseDateString($start),
             $this->parseDateString($end)
