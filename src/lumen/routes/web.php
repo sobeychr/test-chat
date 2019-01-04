@@ -18,17 +18,41 @@ $router->get('/version', function () use ($router) {
 $router->group(['middleware' => ['json', 'cors']],
     function() use ($router) {
 
+        $regexps = [
+            'id'     => '\d+',
+            //'date'   => '\d{4}\-\d{1,2}\-\d{1,2}\-\d{1,2}\-\d{2}\-\d{2}',
+            'date'   => '[\d\-]+',
+            'search' => '[\d\w\-]+',
+            'word'   => '\w+',
+        ];
+
         // Loads messages and users
         $router->get('/init',  'InitController@get');
 
         // Handles messages
-        $router->get('/message', 'MessageController@get');
-        $router->options('/message', function(){
-            return response()->json([], 206);
+        $router->group(['prefix' => 'message'], function() use ($router, $regexps) {
+            $router->get('/',  'MessageController@get');
+
+            $router->post('/', 'MessageController@post');
+            $router->options('/', function() {
+                return response()->json([], 206);
+            });
+
+            $router->get('/{id:' . $regexps['id'] . '}', 'MessageController@id');
+            $router->get('/after/{dateString:' .  $regexps['date'] . '}', 'MessageController@after');
+            $router->get('/before/{dateString:' . $regexps['date'] . '}', 'MessageController@before');
+            $router->get('/has/{text:' . $regexps['search'] . '}', 'MessageController@has');
         });
-        $router->post('/message', 'MessageController@post');
 
         // Handles users
-        $router->get('/user', 'UserController@get');
+        $router->group(['prefix' => 'user'], function() use ($router, $regexps) {
+            $router->get('/', 'UserController@get');
+
+            $router->get('/offline', 'UserController@offline');
+            $router->get('/online',  'UserController@online');
+
+            $router->get('/avatar/{id:' . $regexps['id']   . '}', 'UserController@avatar');
+            $router->get('/name/{name:' . $regexps['word'] . '}', 'UserController@name');
+        });
     }
 );

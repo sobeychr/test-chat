@@ -50,7 +50,22 @@ class Handler extends ExceptionHandler
         $route = $request->route();
         $route = $route[1];
 
+        $meth = get_class_methods($exception);
+        //echo print_r($meth, true) . "\n\n";
+
         $excFile = $this->cutFile( $exception->getFile() );
+
+        $excStatus = 500;
+        $methodCode = 0;
+        if(method_exists($exception, 'getStatusCode')) {
+            $methodCode = $exception->getStatusCode();
+        }
+        elseif(method_exists($exception, 'getCode')) {
+            $methodCode = $exception->getCode();
+        }
+        if($methodCode) {
+            $excStatus = $methodCode;
+        }
 
         $excTrace = [];
         $traceIndex = ['line', 'function', 'class', 'type'];
@@ -71,8 +86,12 @@ class Handler extends ExceptionHandler
             $excTrace[] = $arr;
         }
 
+        if($excStatus === 404) {
+            return $this->render404($request);
+        }
+
         return response()->json([
-            'status'  => 500,
+            'status'  => $excStatus,
             'summary' => $exception->getMessage() . ' in ' . $excFile . ' on line ' . $exception->getLine(),
             'request' => [
                 'method' => $request->method(),
@@ -83,9 +102,23 @@ class Handler extends ExceptionHandler
                 'message' => $exception->getMessage(),
                 'file' => $excFile,
                 'line' => $exception->getLine(),
+                'headers' => method_exists($exception, 'getHeaders') ? $exception->getHeaders() : '',
+                'previous' => $exception->getPrevious(),
                 'trace' => $excTrace,
             ],
-        ], 500);
+        ], $excStatus);
+    }
+
+    protected function render404($request)
+    {
+        return response()->json([
+            'status'  => 400,
+            'summary' => 'Request invalid',
+            'request' => [
+                'method' => $request->method(),
+                'path'   => $request->path(),
+            ],
+        ], 400);
     }
 
     protected function cutFile(string $filepath):string

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\MessageController as MessageController;
-use App\Http\Controllers\UserController as UserController;
 use Laravel\Lumen\Routing\Controller as BaseController;
+
+use App\Http\Controllers\{MessageController, UserController};
 
 class InitController extends BaseController
 {

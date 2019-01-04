@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\DataController as DataController;
-
 class MessageController extends DataController
 {
     //protected $filepath = './../../data/message.json';
@@ -12,6 +10,14 @@ class MessageController extends DataController
     // FROM PARENT CLASS
     // public function get():array
     // protected function getFile():array
+
+    // Various search via API
+    public function id(int $id):array { return $this->find(['userid' => $id]); }
+
+    public function after(string $dateString):array  { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
+    public function before(string $dateString):array { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
+
+    public function has(string $text):array { return $this->contain(['text' => $text]); }
 
     /**
      * Enters a new message entry and returns the list as JSON string
