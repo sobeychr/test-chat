@@ -1,5 +1,38 @@
 import * as Types from './types';
 
+const server = 'http://localhost:3300/';
+const serverInit    = 'init';
+const serverMessage = 'message';
+const serverUser    = 'user';
+
+// Init the application - loads users and messages
+export const init = () => {
+    return dispatch => {
+        dispatch( initStart() );
+        fetch(server + serverInit)
+            .then(loadError)
+            .then(res => res.json())
+            .then(json => {
+                dispatch( initEnd(json) );
+            })
+    };
+};
+
+const initStart = () => ({
+    type: Types.INIT_START
+});
+const initEnd = json => ({
+    type: Types.INIT_END,
+    payload: json
+});
+const loadError = response => {
+    if(!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+}
+
+/*
 export const endDrag = (id, x, y) => ({
     type: Types.ENDDRAG,
     payload: { id, x, y }
@@ -26,6 +59,7 @@ const initEnd = list => ({
 });
 const initError = response => {
     if(!response.ok) {
+        console.log('initError', response, response.json());
         throw Error(response.statusText);
     }
     return response;
@@ -53,7 +87,6 @@ export const newMessage = (userid, text) => {
             body: JSON.stringify(data)
         };
 
-        console.log('obj', obj);
         return fetch('http://localhost:3300/message', obj)
             .then(res => res.json())
             .then(json => {
@@ -74,3 +107,4 @@ export const newUser = name => ({
     type: Types.NEWUSER,
     payload: { name }
 });
+*/

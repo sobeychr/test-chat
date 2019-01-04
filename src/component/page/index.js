@@ -14,10 +14,12 @@ class Index extends React.Component {
     }
 
     render() {
-        const messages = this.props.messageData.list;
-        const users    = this.props.userData.map(
+        const messages = this.props.message;
+        const users    = this.props.user.map(
                 (data, i) => <WindowChat key={i} {...data} messageData={messages} />
             );
+
+        console.log('msg', messages);
 
         return (
             <div className="main">
@@ -28,8 +30,8 @@ class Index extends React.Component {
 }
 
 const mapStateToProp = state => ({
-    userData:    state.user,
-    messageData: state.message
+    user:    state.user.list,
+    message: state.message.list
 });
 
 export default connect(mapStateToProp)(Index);

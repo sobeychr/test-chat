@@ -1,9 +1,10 @@
 import * as Types from './types';
 
-const userData = require('./../data/user.json');
-
-const defaultUser   = userData.default;
-const startingUsers = userData.starting;
+//const userData = require('./../data/user.json');
+const userData = {
+    list: [],
+    loading: false
+};
 
 const updateUser = (list, props) => {
     const { id } = props;
@@ -21,10 +22,23 @@ const updateUser = (list, props) => {
     return newList;
 };
 
-const UserReducer = (state=startingUsers, action) => {
+const UserReducer = (state=userData, action) => {
     const payload = action.payload || {};
     const type = action.type;
 
+    if(type === Types.INIT_START) {
+        return {...state,
+            loading: true
+        };
+    }
+    else if(type === Types.INIT_END) {
+        return {...state,
+            loading: false,
+            list: payload.user
+        };
+    }
+    
+    /*
     if(type === Types.ENDDRAG) {
         return updateUser(state, payload);
     }
@@ -43,6 +57,7 @@ const UserReducer = (state=startingUsers, action) => {
             }
         ];
     }
+    */
 
     return state;
 };

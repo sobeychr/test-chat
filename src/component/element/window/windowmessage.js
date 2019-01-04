@@ -14,7 +14,7 @@ store.subscribe(() => {
 });
 
 const getAvatarId = userid => {
-    const users  = storeState.user;
+    const users  = storeState.user.list;
     const user = users.find(entry => entry.id === userid);
     return user.avatar || 0;
 };

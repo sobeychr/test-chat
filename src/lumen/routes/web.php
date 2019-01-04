@@ -17,8 +17,18 @@ $router->get('/version', function () use ($router) {
 
 $router->group(['middleware' => ['json', 'cors']],
     function() use ($router) {
-        $router->get('/message',  'Message@get');
-        $router->options('/message', '');
-        $router->post('/message', 'Message@post');
+
+        // Loads messages and users
+        $router->get('/init',  'InitController@get');
+
+        // Handles messages
+        $router->get('/message', 'MessageController@get');
+        $router->options('/message', function(){
+            return response()->json([], 206);
+        });
+        $router->post('/message', 'MessageController@post');
+
+        // Handles users
+        $router->get('/user', 'UserController@get');
     }
 );
