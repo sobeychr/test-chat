@@ -25,20 +25,40 @@ $router->group(['middleware' => ['json', 'cors']],
             'search' => '[\d\w\-]+',
             'word'   => '\w+',
         ];
+        $userfields = [
+            'id', 'name', 'avatar', 'status',
+            'x', 'y', 'width', 'height',
+        ];
 
         // Loads messages and users
-        $router->get('/init',  'InitController@get');
+        //$router->get('/init',  'InitController@get');
 
         // Handles messages
-        $router->group(['prefix' => 'message'], function() use ($router, $regexps) {
-            //$router->get('/',  'MessageController@get');
+        $router->group(['prefix' => 'message'], function() use ($router, $params, $regexps, $userfields) {
+            $router->get('/list'.$params, 'MessageController@list');
+            $router->get('/from/{id:'.$regexps['int'].'}'.$params, 'MessageController@from');
+
+            $router->group(['prefix' => '{id:'.$regexps['int'].'}'], function() use ($router, $userfields) {
+                $router->get('/', 'MessageController@id');
+
+                $router->get('/text', 'MessageController@text');
+
+                $router->group(['prefix' => 'user'], function() use ($router, $userfields) {
+                    $router->get('/', 'MessageController@user');
+
+                    $router->get('/{field:'.implode('|', $userfields).'}', 'MessageController@userField');
+                });
+            });
+            
 
             /*
             $router->post('/new', 'MessageController@post');
             $router->options('/new', function() {
                 return response()->json([], 206);
             });
+            */
 
+            /*
             $router->get('/id/{id:' . $regexps['int'] . '}', 'MessageController@id');
             $router->get('/from/{id:' . $regexps['int'] . '}', 'MessageController@id');
             $router->get('/after/{dateString:' .  $regexps['date'] . '}', 'MessageController@after');
@@ -49,17 +69,17 @@ $router->group(['middleware' => ['json', 'cors']],
         });
 
         // Handles users
-        $router->group(['prefix' => 'user'], function() use ($router, $regexps, $params) {
-            $router->get('/list' . $params, 'UserController@list');
+        $router->group(['prefix' => 'user'], function() use ($router, $params, $regexps, $userfields) {
+            $router->get('/list'.$params, 'UserController@list');
 
-            $router->get('/{status:online|offline}' . $params, 'UserController@status');
+            $router->get('/{status:online|offline}'.$params, 'UserController@status');
 
-            $router->get('/{id:' . $regexps['int'] . '}', 'UserController@id');
+            $router->group(['prefix' => '{id:'.$regexps['int'].'}'], function() use ($router, $userfields) {
+                $router->get('/', 'UserController@id');
 
-            /*
-            $router->get('/avatar/{id:' . $regexps['int']   . '}', 'UserController@avatar');
-            $router->get('/name/{name:' . $regexps['word'] . '}', 'UserController@name');
-            */
+                $fields = ['id', 'name', 'avatar', 'status', 'x', 'y', 'width', 'height'];
+                $router->get('/{field:'.implode('|', $userfields).'}', 'UserController@field');
+            });
         });
 
         // Handles random generated content

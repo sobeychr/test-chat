@@ -2,14 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Datafilters\FilterMatch;
+
 class MessageController extends DataController
 {
-    //protected $filepath = './../../data/message.json';
-    //protected $filepath = './../../data/message-init.json';
-    protected $filename = 'message-generated-{id}';
+    private const FIELD_TEXT = 'text';
+    private const FIELD_TIME = 'time';
+    private const FIELD_USER = 'userid';
 
-    // FROM PARENT CLASS
-    // public function get():array
+    protected $filename = 'message-generated-{id}';
+    protected $sorts = [self::FIELD_TIME];
+    protected $returnLimit = 50;
+
+    public function from(int $id, int $limit=0, string $sort='asc'):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit, $sort);
+        $this->filters[] = new FilterMatch(self::FIELD_USER, $id);
+        return $this->get();
+    }
+
+    public function list(int $limit=0, string $sort='asc'):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit, $sort);
+        return $this->get();
+    }
+
+    public function text(int $id):string
+    {
+        return $this->field($id, self::FIELD_TEXT);
+    }
+
+    public function user(int $id):array
+    {
+        $data = $this->id($id);
+        $userid = $data[self::FIELD_USER] ?? 0;
+        if(!$userid) {
+            return [];
+        }
+        return app('App\Http\Controllers\UserController')->id($userid);
+    }
+
+    public function userField(int $id, string $field):string
+    {
+       $user = $this->user($id);
+       return $user[$field] ?? '';
+    }
 
     // Various search via API
     /*

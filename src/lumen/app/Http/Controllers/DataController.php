@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Datafilters\FilterMatch;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use Illuminate\Http\Request;
 
 class DataController extends BaseController
 {
@@ -12,11 +12,24 @@ class DataController extends BaseController
     protected const DATA_SINGLE = 3;
 
     protected $asc = true; // bool to sort ASCENDING or DESCENDING
-    protected $ascFields  = []; // List of fields as String to sort upon
-    protected $dataOutput = 1; // Expecting results
-    protected $filename   = ''; // Filename to fetch data - use {id} for numerical incrementation
+    protected $data = self::DATA_RAW;   // Expecting results
+    protected $filename = ''; // Filename to fetch data - use {id} for numerical incrementation
     protected $filters = []; // List of DataFilters when fetching data
-    protected $limit   = 50; // Limit of entries to return
+    protected $limit = 50; // Limit of entries to return
+    protected $sorts = []; // List of fields as String to sort upon
+
+    public function id(int $id):array
+    {
+        $this->data = DataController::DATA_SINGLE;
+        $this->filters[] = new FilterMatch('id', $id);
+        return $this->get();
+    }
+
+    public function field(int $id, string $field):string
+    {
+        $data = $this->id($id);
+        return $data[$field] ?? '';
+    }
 
     /**
      * Loads JSON files and returns content as Array
@@ -27,13 +40,16 @@ class DataController extends BaseController
     {
         $filepath = PATH_DATA . $this->filename . '.json';
         $id = 0;
-
         $filepath = str_replace('{id}', $id, $filepath);
+
+        if($this->limit === 1) {
+            $this->data = self::DATA_SINGLE;
+        }
 
         $data = $this->loadFile($filepath);
         $data = $this->applyFilter($data);
 
-        if($this->dataOutput === self::DATA_SINGLE) {
+        if($this->data === self::DATA_SINGLE) {
             $data = array_values($data);
             return count($data) ? $data[0] : [];
         }
@@ -41,13 +57,15 @@ class DataController extends BaseController
         $data = $this->applySort($data);
         $data = $this->applyLimit($data);
 
-        return $this->dataOutput === self::DATA_RAW ? $data : array_values($data);
+        return $this->data === self::DATA_RAW ? $data : array_values($data);
     }
 
     protected function registerLimitSort(int $limit, string $sort):void
     {
         $this->asc = $sort === 'desc' ? false : true;
-        $this->limit = $limit;
+        if($limit) {
+            $this->limit = $limit;
+        }
     }
 
     private function applyFilter(array $data):array
@@ -68,7 +86,7 @@ class DataController extends BaseController
     }
     private function applySort(array $data):array
     {
-        if(count($this->ascFields) > 0) {
+        if(count($this->sorts) > 0) {
             usort($data, [$this, 'sortGet']);
         }
         return $data;
@@ -92,7 +110,7 @@ class DataController extends BaseController
         $afirst = $this->asc ? 1 : -1;
         $bfirst = $this->asc ? -1 : 1;
 
-        foreach($this->ascFields as $field)
+        foreach($this->sorts as $field)
         {
             if(!isset( $a[$field] )) {
                 return $bfirst;
