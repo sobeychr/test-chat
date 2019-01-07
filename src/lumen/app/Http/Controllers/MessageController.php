@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 class MessageController extends DataController
 {
     //protected $filepath = './../../data/message.json';
-    protected $filepath = './../../data/message-init.json';
+    //protected $filepath = './../../data/message-init.json';
+    protected $filename = 'message-generated-{id}';
 
     // FROM PARENT CLASS
     // public function get():array
-    // protected function getFile():array
 
     // Various search via API
+    /*
     public function id(int $id):array   { return $this->find(['id' => $id], true); }
     public function from(int $id):array { return $this->find(['userid' => $id]); }
 
@@ -26,6 +27,7 @@ class MessageController extends DataController
         );
     }
     public function has(string $text):array { return $this->contain(['text' => $text]); }
+    */
 
     /**
      * Enters a new message entry and returns the list as JSON string

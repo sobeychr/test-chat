@@ -3,27 +3,125 @@
 namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
 class DataController extends BaseController
 {
-    private const MATCH_CONTAIN    = 1;
-    private const MATCH_EXACT      = 2;
-    private const MATCH_GREATER    = 3;
-    private const MATCH_GREATER_EQ = 4;
-    private const MATCH_LOWER      = 5;
-    private const MATCH_LOWER_EQ   = 6;
+    protected const DATA_LIST   = 1;
+    protected const DATA_RAW    = 2;
+    protected const DATA_SINGLE = 3;
 
-    protected $filepath = '';
+    protected $asc = true; // bool to sort ASCENDING or DESCENDING
+    protected $ascFields  = []; // List of fields as String to sort upon
+    protected $dataOutput = 1; // Expecting results
+    protected $filename   = ''; // Filename to fetch data - use {id} for numerical incrementation
+    protected $filters = []; // List of DataFilters when fetching data
+    protected $limit   = 50; // Limit of entries to return
 
     /**
-     * Returns the JSON content as Array
+     * Loads JSON files and returns content as Array
+     * @uses Data parsing functions - applyFilter() applyLimit() applySort()
      * @return array [JSON content as Array]
      */
-    public function get():array
+    protected function get():array
     {
-        $str = file_get_contents($this->filepath);
-        $arr = json_decode($str, true);
-        return $arr;
+        $filepath = PATH_DATA . $this->filename . '.json';
+        $id = 0;
+
+        $filepath = str_replace('{id}', $id, $filepath);
+
+        $data = $this->loadFile($filepath);
+        $data = $this->applyFilter($data);
+
+        if($this->dataOutput === self::DATA_SINGLE) {
+            $data = array_values($data);
+            return count($data) ? $data[0] : [];
+        }
+
+        $data = $this->applySort($data);
+        $data = $this->applyLimit($data);
+
+        return $this->dataOutput === self::DATA_RAW ? $data : array_values($data);
+    }
+
+    protected function registerLimitSort(int $limit, string $sort):void
+    {
+        $this->asc = $sort === 'desc' ? false : true;
+        $this->limit = $limit;
+    }
+
+    private function applyFilter(array $data):array
+    {
+        if(count($this->filters) > 0) {
+            foreach($this->filters as $filter) {
+                $data = $filter->filter($data);
+            }
+        }
+        return $data;
+    }
+    private function applyLimit(array $data):array
+    {
+        if(count($data) > $this->limit) {
+            $data = array_slice($data, 0, $this->limit);
+        }
+        return $data;
+    }
+    private function applySort(array $data):array
+    {
+        if(count($this->ascFields) > 0) {
+            usort($data, [$this, 'sortGet']);
+        }
+        return $data;
+    }
+
+    private function loadFile(string $filepath):array
+    {
+        if(file_exists($filepath)) {
+            if($content = file_get_contents($filepath)) {
+                if($json = json_decode($content, true)) {
+                    return $json;
+                }
+            }
+        }
+
+        return [];
+    }
+
+    private function sortGet($a, $b):int
+    {
+        $afirst = $this->asc ? 1 : -1;
+        $bfirst = $this->asc ? -1 : 1;
+
+        foreach($this->ascFields as $field)
+        {
+            if(!isset( $a[$field] )) {
+                return $bfirst;
+            }
+            elseif(!isset( $b[$field] )) {
+                return $afirst;
+            }
+
+            $aval = $a[$field];
+            $bval = $b[$field];
+
+            if($aval === $bval) {
+                continue;
+            }
+            elseif(is_numeric($aval) && !is_numeric($bval)) {
+                return $afirst;
+            }
+            elseif(!is_numeric($aval) && is_numeric($bval)) {
+                return $bfirst;
+            }
+            elseif(is_numeric($aval) && is_numeric($bval)) {
+                return $aval >= $bval ? $afirst : $bfirst;
+            }
+            elseif(is_string($aval) && is_string($bval)) {
+                return strcmp($aval, $bval) > 0 ? $afirst : $bfirst;
+            }
+        }
+
+        return $afirst;
     }
 
     // Various searches for extended Controllers
@@ -33,12 +131,14 @@ class DataController extends BaseController
      * @param  bool  $single [TRUE to return only 1 entry]
      * @return array [the filtered content as List or the Single Entry]
      */
+    /*
     protected function contain      (array $search, bool $single=false):array { return $this->filter(self::MATCH_CONTAIN,    $search, $single); }
     protected function find         (array $search, bool $single=false):array { return $this->filter(self::MATCH_EXACT,      $search, $single); }
     protected function greater      (array $search, bool $single=false):array { return $this->filter(self::MATCH_GREATER,    $search, $single); }
     protected function greaterEqual (array $search, bool $single=false):array { return $this->filter(self::MATCH_GREATER_EQ, $search, $single); }
     protected function lower        (array $search, bool $single=false):array { return $this->filter(self::MATCH_LOWER,      $search, $single); }
     protected function lowerEqual   (array $search, bool $single=false):array { return $this->filter(self::MATCH_LOWER_EQ,   $search, $single); }
+    */
 
     /**
      * Returns a filtered JSON content as List or the Single Entry between 2 values
@@ -48,6 +148,7 @@ class DataController extends BaseController
      * @param  bool   $single [TRUE to return only 1 entry]
      * @return array  [the filtered content as List or the Single Entry]
      */
+    /*
     protected function filterBetween(string $field, int $min, int $max, bool $single=false):array
     {
         $data = $this->get();
@@ -62,6 +163,7 @@ class DataController extends BaseController
         $values = array_values($data);
         return ($single && count($values)===1) ? $values[0] : $values;
     }
+    */
 
     /**
      * Reusable filter function for searches
@@ -70,6 +172,7 @@ class DataController extends BaseController
      * @param  bool  $single [Bool from various protected filter functions]
      * @return array [the filtered content as List or the Single Entry]
      */
+    /*
     private function filter(int $match, array $search, bool $single):array
     {
         $data = $this->get();
@@ -107,6 +210,7 @@ class DataController extends BaseController
         $values = array_values($data);
         return ($single && count($values)===1) ? $values[0] : $values;
     }
+    */
 
     /**
      * Returns a query date string into a timestamp

@@ -18,6 +18,7 @@ $router->get('/version', function () use ($router) {
 $router->group(['middleware' => ['json', 'cors']],
     function() use ($router) {
 
+        $params  = '[/{limit:\d+}[/{sort:asc|desc}]]';
         $regexps = [
             'int'     => '\d+',
             'date'   => '[\d\-]+',
@@ -30,8 +31,9 @@ $router->group(['middleware' => ['json', 'cors']],
 
         // Handles messages
         $router->group(['prefix' => 'message'], function() use ($router, $regexps) {
-            $router->get('/',  'MessageController@get');
+            //$router->get('/',  'MessageController@get');
 
+            /*
             $router->post('/new', 'MessageController@post');
             $router->options('/new', function() {
                 return response()->json([], 206);
@@ -43,17 +45,21 @@ $router->group(['middleware' => ['json', 'cors']],
             $router->get('/before/{dateString:' . $regexps['date'] . '}', 'MessageController@before');
             $router->get('/between/{start:' . $regexps['date'] . '}/{end:' . $regexps['date'] . '}', 'MessageController@between');
             $router->get('/has/{text:' . $regexps['search'] . '}', 'MessageController@has');
+            */
         });
 
         // Handles users
-        $router->group(['prefix' => 'user'], function() use ($router, $regexps) {
-            $router->get('/', 'UserController@get');
+        $router->group(['prefix' => 'user'], function() use ($router, $regexps, $params) {
+            $router->get('/list' . $params, 'UserController@list');
 
-            $router->get('/offline', 'UserController@offline');
-            $router->get('/online',  'UserController@online');
+            $router->get('/{status:online|offline}' . $params, 'UserController@status');
 
+            $router->get('/{id:' . $regexps['int'] . '}', 'UserController@id');
+
+            /*
             $router->get('/avatar/{id:' . $regexps['int']   . '}', 'UserController@avatar');
             $router->get('/name/{name:' . $regexps['word'] . '}', 'UserController@name');
+            */
         });
 
         // Handles random generated content

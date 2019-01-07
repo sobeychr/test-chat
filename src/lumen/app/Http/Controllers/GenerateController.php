@@ -70,7 +70,7 @@ Nam scelerisque, enim id euismod congue, ipsum sapien hendrerit eros, ullamcorpe
             $this->writeFile('message-generated-' . $filecount . '.json', $arr);
         }
         return [
-            'filecount' => $filecount,
+            'filecount' => ($filecount + 1),
             'messagecount' => $id,
         ];
     }
