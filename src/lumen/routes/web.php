@@ -19,7 +19,7 @@ $router->group(['middleware' => ['json', 'cors']],
     function() use ($router) {
 
         $regexps = [
-            'id'     => '\d+',
+            'int'     => '\d+',
             'date'   => '[\d\-]+',
             'search' => '[\d\w\-]+',
             'word'   => '\w+',
@@ -37,8 +37,8 @@ $router->group(['middleware' => ['json', 'cors']],
                 return response()->json([], 206);
             });
 
-            $router->get('/id/{id:' . $regexps['id'] . '}', 'MessageController@id');
-            $router->get('/from/{id:' . $regexps['id'] . '}', 'MessageController@id');
+            $router->get('/id/{id:' . $regexps['int'] . '}', 'MessageController@id');
+            $router->get('/from/{id:' . $regexps['int'] . '}', 'MessageController@id');
             $router->get('/after/{dateString:' .  $regexps['date'] . '}', 'MessageController@after');
             $router->get('/before/{dateString:' . $regexps['date'] . '}', 'MessageController@before');
             $router->get('/between/{start:' . $regexps['date'] . '}/{end:' . $regexps['date'] . '}', 'MessageController@between');
@@ -52,8 +52,16 @@ $router->group(['middleware' => ['json', 'cors']],
             $router->get('/offline', 'UserController@offline');
             $router->get('/online',  'UserController@online');
 
-            $router->get('/avatar/{id:' . $regexps['id']   . '}', 'UserController@avatar');
+            $router->get('/avatar/{id:' . $regexps['int']   . '}', 'UserController@avatar');
             $router->get('/name/{name:' . $regexps['word'] . '}', 'UserController@name');
         });
+
+        // Handles random generated content
+        /*
+        $router->group(['prefix' => 'generate'], function() use ($router) {
+            $router->get('/message', 'GenerateController@message');
+            $router->get('/user', 'GenerateController@user');
+        });
+        */
     }
 );

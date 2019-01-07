@@ -17,7 +17,6 @@ class MessageController extends DataController
 
     public function after(string $dateString):array  { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
     public function before(string $dateString):array { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
-
     public function between(string $start, string $end):array
     {
         return $this->filterBetween(
@@ -26,7 +25,6 @@ class MessageController extends DataController
             $this->parseDateString($end)
         );
     }
-
     public function has(string $text):array { return $this->contain(['text' => $text]); }
 
     /**
