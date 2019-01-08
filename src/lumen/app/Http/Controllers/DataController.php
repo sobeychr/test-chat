@@ -7,17 +7,23 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class DataController extends BaseController
 {
+    // If the data output should be a List, Raw JSON or a Single JSON entry
     protected const DATA_LIST   = 1;
     protected const DATA_RAW    = 2;
     protected const DATA_SINGLE = 3;
 
-    protected $asc = true; // bool to sort ASCENDING or DESCENDING
-    protected $data = self::DATA_RAW;   // Expecting results
+    protected $asc = true;            // bool to sort ASCENDING or DESCENDING
+    protected $data = self::DATA_RAW; // Expecting results as Raw JSON be default
     protected $filename = ''; // Filename to fetch data - use {id} for numerical incrementation
-    protected $filters = []; // List of DataFilters when fetching data
+    protected $filters = [];  // List of DataFilters when fetching data
     protected $limit = 50; // Limit of entries to return
     protected $sorts = []; // List of fields as String to sort upon
 
+    /**
+     * Returns a single entry via ID
+     * @param  int $id [ID to search for]
+     * @return array   [The JSON content of the entry]
+     */
     public function id(int $id):array
     {
         $this->data = DataController::DATA_SINGLE;
@@ -25,15 +31,23 @@ class DataController extends BaseController
         return $this->get();
     }
 
-    public function field(int $id, string $field):string
+    /**
+     * Returns the field value from a single entry via ID
+     * @uses $this->id() [Fetches the entry]
+     * @param  int    $id    [ID to search for]
+     * @param  string $field [Field of the entry to return]
+     * @return array         [Assoc Array of the Field with its Value]
+     */
+    public function field(int $id, string $field):array
     {
         $data = $this->id($id);
-        return $data[$field] ?? '';
+        return [$field => $data[$field] ?? ''];
     }
 
     /**
      * Loads JSON files and returns content as Array
-     * @uses Data parsing functions - applyFilter() applyLimit() applySort()
+     * @uses $this->data
+     * @uses $this->applyFilter()
      * @return array [JSON content as Array]
      */
     protected function get():array
@@ -60,7 +74,13 @@ class DataController extends BaseController
         return $this->data === self::DATA_RAW ? $data : array_values($data);
     }
 
-    protected function registerLimitSort(int $limit, string $sort):void
+    /**
+     * Registers the Limit and Sorting ASC or DESC for $this->get().
+     * Must be called before $this->get().
+     * @param  int $limit   [Limit of entries to return]
+     * @param  string $sort ['asc' or 'desc']
+     */
+    protected function registerLimitSort(int $limit=0, string $sort='asc'):void
     {
         $this->asc = $sort === 'desc' ? false : true;
         if($limit) {
@@ -68,6 +88,7 @@ class DataController extends BaseController
         }
     }
 
+    // Multiple functions processing the Data from $this->get()
     private function applyFilter(array $data):array
     {
         if(count($this->filters) > 0) {
@@ -92,6 +113,7 @@ class DataController extends BaseController
         return $data;
     }
 
+    // Loads a single file from $this->get()
     private function loadFile(string $filepath):array
     {
         if(file_exists($filepath)) {
@@ -105,6 +127,7 @@ class DataController extends BaseController
         return [];
     }
 
+    // Sorts entries within $this->get()
     private function sortGet($a, $b):int
     {
         $afirst = $this->asc ? 1 : -1;
@@ -142,98 +165,10 @@ class DataController extends BaseController
         return $afirst;
     }
 
-    // Various searches for extended Controllers
-    /**
-     * Returns a filtered JSON content as List or the Single Entry
-     * @param  array $search [Assoc Array for the search filter with field to value]
-     * @param  bool  $single [TRUE to return only 1 entry]
-     * @return array [the filtered content as List or the Single Entry]
-     */
-    /*
-    protected function contain      (array $search, bool $single=false):array { return $this->filter(self::MATCH_CONTAIN,    $search, $single); }
-    protected function find         (array $search, bool $single=false):array { return $this->filter(self::MATCH_EXACT,      $search, $single); }
-    protected function greater      (array $search, bool $single=false):array { return $this->filter(self::MATCH_GREATER,    $search, $single); }
-    protected function greaterEqual (array $search, bool $single=false):array { return $this->filter(self::MATCH_GREATER_EQ, $search, $single); }
-    protected function lower        (array $search, bool $single=false):array { return $this->filter(self::MATCH_LOWER,      $search, $single); }
-    protected function lowerEqual   (array $search, bool $single=false):array { return $this->filter(self::MATCH_LOWER_EQ,   $search, $single); }
-    */
-
-    /**
-     * Returns a filtered JSON content as List or the Single Entry between 2 values
-     * @param  string $field  [String value of the field to filter from]
-     * @param  int    $min    [Minimum value for the entry]
-     * @param  int    $max    [Maximum value for the entry]
-     * @param  bool   $single [TRUE to return only 1 entry]
-     * @return array  [the filtered content as List or the Single Entry]
-     */
-    /*
-    protected function filterBetween(string $field, int $min, int $max, bool $single=false):array
-    {
-        $data = $this->get();
-        
-        $data = array_filter($data, function($entry) use ($field, $min, $max) {
-            if(!isset($entry[$field])) {
-                return false;
-            }
-            return $min <= $entry[$field] && $entry[$field] <= $max;
-        });
-
-        $values = array_values($data);
-        return ($single && count($values)===1) ? $values[0] : $values;
-    }
-    */
-
-    /**
-     * Reusable filter function for searches
-     * @param  int   $match  [MATH_* contants from DataController]
-     * @param  array $search [Assoc Array from various protected filter functions]
-     * @param  bool  $single [Bool from various protected filter functions]
-     * @return array [the filtered content as List or the Single Entry]
-     */
-    /*
-    private function filter(int $match, array $search, bool $single):array
-    {
-        $data = $this->get();
-        
-        $data = array_filter($data, function($entry) use ($search, $match) {
-            foreach($search as $key=>$value) {
-
-                if(!isset($entry[$key])) {
-                    return false;
-                }
-
-                if($match === self::MATCH_CONTAIN) {
-                    return stripos($entry[$key], $value) !== false;
-                }
-                elseif($match === self::MATCH_EXACT) {
-                    return $entry[$key] === $value;
-                }
-                elseif($match === self::MATCH_GREATER) {
-                    return $entry[$key] > $value;
-                }
-                elseif($match === self::MATCH_GREATER_EQ) {
-                    return $entry[$key] >= $value;
-                }
-                elseif($match === self::MATCH_LOWER) {
-                    return $entry[$key] < $value;
-                }
-                elseif($match === self::MATCH_LOWER_EQ) {
-                    return $entry[$key] <= $value;
-                }
-            }
-
-            return false;
-        });
-        
-        $values = array_values($data);
-        return ($single && count($values)===1) ? $values[0] : $values;
-    }
-    */
-
     /**
      * Returns a query date string into a timestamp
      * @param  string $dateString [DateString in format YYYY-MM-DD-HH-II-SS]
-     * @return int    [Timestamp from DateString]
+     * @return int                [Timestamp from DateString]
      */
     protected function parseDateString(string $dateString):int
     {
@@ -253,9 +188,9 @@ class DataController extends BaseController
 
     /**
      * Parses a single date numerical value with leading zeros as String
-     * @param  int     $value [Date numerical value - year, month, date, hour, minute, second]
+     * @param  int     $value    [Date numerical value - year or month or date or hour or minute or second]
      * @param  int     $decimals [Amount of leading zeros to have]
-     * @return string  [Parsed date numerical value]
+     * @return string            [Parsed date numerical value]
      */
     private function parseDateNumber(int $value, int $decimals=2):string
     {

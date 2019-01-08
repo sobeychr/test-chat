@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Datafilters\FilterMatch;
+use App\Datafilters\{FilterBetween, FilterGreaterEqual, FilterLowerEqual, FilterMatch};
 
 class MessageController extends DataController
 {
@@ -13,6 +13,40 @@ class MessageController extends DataController
     protected $filename = 'message-generated-{id}';
     protected $sorts = [self::FIELD_TIME];
     protected $returnLimit = 50;
+
+    public function after(string $dateString, int $limit=0):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit);
+        $this->filters[] = new FilterGreaterEqual(
+            self::FIELD_TIME,
+            $this->parseDateString($dateString)
+        );
+        return $this->get();
+    }
+
+    public function before(string $dateString, int $limit=0):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit);
+        $this->filters[] = new FilterLowerEqual(
+            self::FIELD_TIME,
+            $this->parseDateString($dateString)
+        );
+        return $this->get();
+    }
+
+    public function between(string $start, string $end, int $limit=0, string $sort='asc'):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit, $sort);
+        $this->filters[] = new FilterBetween(
+            self::FIELD_TIME,
+            $this->parseDateString($start),
+            $this->parseDateString($end)
+        );
+        return $this->get();
+    }
 
     public function from(int $id, int $limit=0, string $sort='asc'):array
     {
@@ -29,7 +63,7 @@ class MessageController extends DataController
         return $this->get();
     }
 
-    public function text(int $id):string
+    public function text(int $id):array
     {
         return $this->field($id, self::FIELD_TEXT);
     }

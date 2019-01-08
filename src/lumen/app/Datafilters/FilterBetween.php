@@ -2,15 +2,17 @@
 
 namespace App\Datafilters;
 
-abstract class DataFilter
+class FilterBetween
 {
     protected $field = '';
-    protected $value;
+    protected $min = 0;
+    protected $max = 0;
 
-    public function __construct(string $field, $value)
+    public function __construct(string $field, $min, $max)
     {
         $this->field = $field;
-        $this->value = $value;
+        $this->min = $min;
+        $this->max = $max;
     }
 
     public function filter(array $data):array
@@ -19,10 +21,8 @@ abstract class DataFilter
             if(!isset( $entry[$this->field] )) {
                 return false;
             }
-            return $this->operation($entry[$this->field]);
+            $entryval = $entry[$this->field];
+            return $this->min < $entryval && $entryval < $this->max;
         });
     }
-
-    abstract protected function operation($entryValue):bool;
-    // { return $entryValue === $this->value; }
 }
