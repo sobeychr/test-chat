@@ -67,6 +67,7 @@ module.exports = {
     resolve: {
         alias: {
             Data:       path.resolve(__dirname, 'src/data/'),
+            Element:    path.resolve(__dirname, 'src/component/element/'),
             Image:      path.resolve(__dirname, 'src/image/'),
             Function:   path.resolve(__dirname, 'src/function/'),
             ReduxStore: path.resolve(__dirname, 'src/reduxStore/'),

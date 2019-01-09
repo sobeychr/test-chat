@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { endDrag, newAvatar } from 'ReduxStore/actions';
 
-import ButtonIconDrag from './../buttonicon/buttonicondrag';
+import ButtonIconDrag from 'Element/buttonicon/buttonicondrag';
 import WindowAvatar from './windowavatar';
 import WindowAvatarSelect from './windowavatarselect';
 import WindowInput from './windowinput';
