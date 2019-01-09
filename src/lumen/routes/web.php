@@ -41,12 +41,12 @@ $router->group(['middleware' => ['json', 'cors']],
         // Handles messages
         $router->group(['prefix' => 'message'], function() use ($router, $params, $regexps, $userfields) {
             $router->get('/list'.$params['limit_sort'], 'MessageController@list');
-            $router->get('/from/{id:'.$regexps['int'].'}'.$params['limit_sort'], 'MessageController@from');
-
+            
             $router->get('/after/{dateString:' .$regexps['date'].'}'.$params['limit'], 'MessageController@after');
             $router->get('/before/{dateString:'.$regexps['date'].'}'.$params['limit'], 'MessageController@before');
             $router->get('/between/{start:'.$regexps['date'].'}/{end:'.$regexps['date'].'}'.$params['limit_sort'], 'MessageController@between');
-            $router->get('/has/{text:'.$regexps['search'].'}'.$params['limit_sort'], 'MessageController@between');
+            $router->get('/from/{id:'.$regexps['int'].'}'.$params['limit_sort'], 'MessageController@from');
+            $router->get('/has/{text:'.$regexps['search'].'}'.$params['limit_sort'], 'MessageController@has');
 
             $router->group(['prefix' => '{id:'.$regexps['int'].'}'], function() use ($router, $userfields) {
                 $router->get('/', 'MessageController@id');
@@ -64,15 +64,6 @@ $router->group(['middleware' => ['json', 'cors']],
             $router->options('/new', function() {
                 return response()->json([], 206);
             });
-            */
-
-            /*
-            $router->get('/id/{id:' . $regexps['int'] . '}', 'MessageController@id');
-            $router->get('/from/{id:' . $regexps['int'] . '}', 'MessageController@id');
-            $router->get('/after/{dateString:' .  $regexps['date'] . '}', 'MessageController@after');
-            $router->get('/before/{dateString:' . $regexps['date'] . '}', 'MessageController@before');
-            $router->get('/between/{start:' . $regexps['date'] . '}/{end:' . $regexps['date'] . '}', 'MessageController@between');
-            $router->get('/has/{text:' . $regexps['search'] . '}', 'MessageController@has');
             */
         });
 

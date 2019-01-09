@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Datafilters\{FilterBetween, FilterGreaterEqual, FilterLowerEqual, FilterMatch};
+use App\Datafilters\{FilterBetween, FilterContain, FilterGreaterEqual, FilterLowerEqual, FilterMatch};
 
 class MessageController extends DataController
 {
@@ -53,6 +53,14 @@ class MessageController extends DataController
         $this->dataOutput = DataController::DATA_LIST;
         $this->registerLimitSort($limit, $sort);
         $this->filters[] = new FilterMatch(self::FIELD_USER, $id);
+        return $this->get();
+    }
+
+    public function has(string $text, int $limit=0, string $sort='asc'):array
+    {
+        $this->dataOutput = DataController::DATA_LIST;
+        $this->registerLimitSort($limit, $sort);
+        $this->filters[] = new FilterContain(self::FIELD_TEXT, $text);
         return $this->get();
     }
 
