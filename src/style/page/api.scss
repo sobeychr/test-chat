@@ -1,0 +1,29 @@
+@import '~Style/global';
+
+.form {
+    border-bottom: 3px solid $colorGreen2;
+    margin: 10px;
+    min-width: 250px;
+    padding-bottom: 10px;
+
+    .input {
+        display: block;
+        width: calc(100% - 10px);
+    }
+
+    .submit {
+        background: #000;
+        border: 2px solid $linkColor0;
+        color: $linkColor0;
+        cursor: pointer;
+        display: block;
+        font-weight: bold;
+        margin: 12px;
+        padding: 5px 10px;
+
+        &:hover {
+            border-color: $linkColor1;
+            color: $linkColor1;
+        }
+    }
+}
