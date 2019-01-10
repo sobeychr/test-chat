@@ -39,7 +39,7 @@ class Api extends React.Component {
     completeResponse(isSuccess=false, json={}) {
         let responses = this.state.responses;
 
-        responses.push({
+        responses.unshift({
             delay: getTimestamp() - this.state.start,
             isSuccess,
             json,
@@ -89,7 +89,7 @@ class Api extends React.Component {
                 (data, i) => <option key={i} value={data}/>
             );
 
-        const requestList = this.state.responses.reverse().map(
+        const requestList = this.state.responses.map(
                 (data, i) => <Request key={i} {...data}/>
             );
 

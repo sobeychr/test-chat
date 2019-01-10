@@ -46,7 +46,7 @@ class Request extends React.Component {
             bodyClass.push('body--hidden');
         }
 
-        var content = {},
+        var content = '',
             type = 'Object';
 
         if(Array.isArray(json)) {
@@ -55,6 +55,9 @@ class Request extends React.Component {
             content = json.slice(0, 5).map(
                 (data, i) => <RequestEntry key={i} data={data}/>
             );
+        }
+        else {
+            content = renderFields(json);
         }
         
         return (
