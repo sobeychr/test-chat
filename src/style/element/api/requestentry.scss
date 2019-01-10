@@ -1,0 +1,16 @@
+@import '~Style/global';
+
+.request-entry {
+    background: $bgColor1;
+    border-left: 3px solid $linkColor0;
+    padding: 3px 3px 3px 5px;
+
+    &:hover {
+        background: $bgColor0;
+        border-color: $linkColor1;
+    }
+
+    &:nth-child(n + 2) {
+        margin-top: 15px;
+    }
+}

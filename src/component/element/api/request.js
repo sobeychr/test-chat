@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RequestEntry from './requestentry';
+import RequestField from './requestfield';
+
 import 'Style/element/api/request.scss';
 
-const renderFields = data => {
+export const renderFields = data => {
     const fields = [];
-    var key = '',
+    var label = '',
         i = 0;
 
-    for(key in data) {
-        fields.push(<p key={i}>
-            <span className='title'>{key}:</span>
-            <span className='value'>{data[key]}</span>
-        </p>);
+    for(label in data)
+    {
+        fields.push(<RequestField key={i} label={label} value={ data[label] }/>);
         i++;
     }
 
@@ -24,17 +25,10 @@ class Request extends React.Component {
         super(props);
 
         this.state = {
-            bodyHeight: 0,
             isShow: true
         };
 
         this.handleShow = this.handleShow.bind(this);
-    }
-
-    componentDidMount() {
-        this.setState({
-            bodyHeight: this.bodyRef.clientHeight
-        });
     }
 
     handleShow() {
@@ -46,39 +40,23 @@ class Request extends React.Component {
     render() {
         const { delay, isSuccess, json, query} = this.props;
         const titleClass = isSuccess ? 'success' : 'error';
-
-        var bodyAttr = {
-                className: 'body',
-                style: {
-                    height: this.state.bodyHeight > 0 ? this.state.bodyHeight : '100%'
-                },
-                ref: (bodyEl) => (this.bodyRef = bodyEl)
-            },
-            fields = [],
-            type = '';
+        const bodyClass = ['body'];
 
         if(!this.state.isShow) {
-            bodyAttr.className += ' body--hidden';
+            bodyClass.push('body--hidden');
         }
+
+        var content = {},
+            type = 'Object';
 
         if(Array.isArray(json)) {
             type = 'Array(' + json.length + ')';
-            fields = json.slice(0, 4).map(
-                    (data, i) => (
-                        <div key={i}>
-                            <p className='entry'>Entry</p>
-                            { renderFields(data) }
-                        </div>
-                    )
-                );
-        }
-        else {
-            type = 'Object';
-            console.log(json);
 
-            //fields = renderFields(json);
+            content = json.slice(0, 5).map(
+                (data, i) => <RequestEntry key={i} data={data}/>
+            );
         }
-           
+        
         return (
             <article className='request'>
                 <header className='header'>
@@ -88,12 +66,9 @@ class Request extends React.Component {
                         <span className='int'>{delay}</span>ms
                     </p>
                 </header>
-                <div {...bodyAttr}>
-                    <p class='title'>
-                        <span className='title'>Type:</span>
-                        <span className='value string'>{type}</span>
-                    </p>
-                    {fields}
+                <div className={bodyClass.join(' ')}>
+                    <p className='type'>{type}</p>
+                    {content}
                 </div>
             </article>
         );

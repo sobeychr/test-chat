@@ -48,7 +48,6 @@ class Api extends React.Component {
 
         this.setState({
             loading: false,
-            query: '',
             responses,
             start: 0
         });

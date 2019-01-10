@@ -1,0 +1,40 @@
+@import '~Style/global';
+
+.request-field {
+    font-size: 14px;
+    padding: 0;
+
+    &:nth-child(n + 2) {
+        margin-top: 1px;
+    }
+    &:nth-child(3n + 4) {
+        border-top: 1px solid $color4;
+    }
+
+    &__label {
+        display: inline-block;
+        font-family: 'Courier New', sans-serif;
+        margin-right: 5px;
+        width: 82px;
+
+        &.date {
+            color: $linkColor0;
+        }
+        &.number {
+            color: $colorRed1;
+        }
+        &.string {
+            color: $colorGreen2;
+        }
+    }
+
+    &__value {
+        color: $color2;
+
+        .details {
+            background: $bgColor0;
+            font-style: italic;
+            margin-left: 20px;
+        }
+    }
+}
