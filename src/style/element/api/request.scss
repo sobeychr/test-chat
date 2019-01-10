@@ -8,11 +8,16 @@
         padding-top: 10px;
     }
 
-    h1 {
-        margin: 0 10px 0 0;
+    .header {
+        margin: 0 0 10px 0;
         padding: 0;
 
-        .title {
+        h1 {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 10px 0 0;
+            padding: 0;
+
             &.success {
                 color: $colorGreen1;
             }
@@ -27,8 +32,32 @@
             font: normal 12px 'Courier New', sans-serif;
             margin-left: 10px;
             height: 100%;
-            padding: 3px 5px;
+            padding: 2.5px 5px;
             vertical-align: middle;
+        }
+
+        .delay {
+            color: $color3;
+            font: normal 12px 'Courier New', sans-serif;
+            margin: 5px 0 0 0;
+            padding: 0;
+
+            .int {
+                color: $linkColor0;
+                margin-right: 5px;
+            }
+        }
+    }
+
+
+    .body {
+        border-left: 1px solid $color4;
+        display: block;
+        overflow: hidden;
+        padding-left: 10px;
+
+        &--hidden {
+            display: none;
         }
     }
 }

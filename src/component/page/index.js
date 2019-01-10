@@ -47,14 +47,14 @@ class Index extends React.Component {
             );
 
         return (
-            <div className="main">
+            <main className="main">
                 <form className="add" onSubmit={this.handleUserSubmit}>
                     <ButtonIconAdd label="Add User" type="submit"/>
                     <input type="text" placeholder="New username" value={this.state.username} onChange={this.handleUsername} />
                 </form>
 
                 {users}
-            </div>
+            </main>
         );
     }
 }

@@ -1,5 +1,7 @@
 @import '~Style/global';
 
+
+
 .form {
     border-bottom: 3px solid $colorGreen2;
     margin: 10px;
@@ -11,15 +13,24 @@
         width: calc(100% - 10px);
     }
 
+    .loading,
     .submit {
         background: #000;
         border: 2px solid $linkColor0;
         color: $linkColor0;
-        cursor: pointer;
-        display: block;
-        font-weight: bold;
+        display: inline-block;
+        font: bold 14px 'Arial', sans-serif;
         margin: 12px;
         padding: 5px 10px;
+        text-align: center;
+    }
+
+    .loading {
+        font-style: italic;
+    }
+
+    .submit {
+        cursor: pointer;
 
         &:hover {
             border-color: $linkColor1;
