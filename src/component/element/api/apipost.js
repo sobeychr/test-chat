@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ApiPostEntry from './apipostentry';
+
 import 'Style/element/api/apipost.scss';
 
 class ApiPost extends React.Component {
@@ -7,15 +9,21 @@ class ApiPost extends React.Component {
         super(props);
 
         this.state = {
-            data: {
-                alpha: 1,
-                beta: 2,
-                gamma: 3,
-            },
+            data: [],
             isShow: true
         };
 
+        this.handleAdd  = this.handleAdd.bind(this);
         this.handleShow = this.handleShow.bind(this);
+    }
+
+    handleAdd() {
+        var data = this.state.data;
+        data.push({
+            label: '',
+            value: ''
+        });
+        this.setState(data);
     }
 
     handleShow() {
@@ -36,25 +44,20 @@ class ApiPost extends React.Component {
         var label = '',
             i = 0;
         for(label in data) {
-            rows.push(
-                <tr key={i}>
-                    <td>
-                        <input type='text' value={label}/>
-                    </td>
-                    <td>
-                        <input type='text' value={ data[label] }/>
-                    </td>
-                </tr>
-            );
+            rows.push(<ApiPostEntry key={i} {...data[label]} />);
             i++;
         }
 
         return (
             <div className='api-post'>
-                <p className='api-post__title' onClick={this.handleShow}>Post content</p>
-                <button className='api-post__add' type='button'>Add entry</button>
+                <div className='api-post__title'>
+                    <span onClick={this.handleShow}>Post content</span>
+                    <button className='api-post__add' type='button' onClick={this.handleAdd}>Add entry</button>
+                </div>
                 <table className={bodyClass.join(' ')}>
-                    {rows}
+                    <tbody>
+                        {rows}
+                    </tbody>
                 </table>
             </div>
         );
