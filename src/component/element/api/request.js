@@ -11,8 +11,7 @@ export const renderFields = data => {
     var label = '',
         i = 0;
 
-    for(label in data)
-    {
+    for(label in data) {
         fields.push(<RequestField key={i} label={label} value={ data[label] }/>);
         i++;
     }

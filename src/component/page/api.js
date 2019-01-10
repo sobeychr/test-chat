@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ApiPost from 'Element/api/apipost';
 import Request from 'Element/api/request';
 
 import 'Style/page/api.scss';
@@ -59,9 +60,7 @@ class Api extends React.Component {
         });
     }
 
-    handleQuerySubmit(event) {
-        event.preventDefault();
-
+    handleQuerySubmit(isPost) {
         let query = this.state.query;
         if(query.substr(0,1) !== '/') {
             query = '/' + query;
@@ -70,8 +69,6 @@ class Api extends React.Component {
         this.setState({
             loading: true,
             start: getTimestamp(),
-            status: 0,
-            statusText: ''
         });
 
         fetch(rootUrl + query)
@@ -95,16 +92,20 @@ class Api extends React.Component {
 
         const submitButton = this.state.loading
             ? <span className='loading'>Loading</span>
-            : <button className='submit' type='submit'>Submit</button>;
+            : <div>
+                <button className='submit' type='button' onClick={() => {this.handleQuerySubmit(false);}}>GET</button>
+                <button className='submit' type='button' onClick={() => {this.handleQuerySubmit(true);}}>POST</button>
+            </div>;
         
         return (
             <main className='main'>
-                <form className='form' onSubmit={this.handleQuerySubmit}>
+                <form className='form'>
                     <input className='input' type='text' list='predefQuery' placeholder='/api/request' readOnly={this.state.loading ? 'readonly' : ''} value={this.state.query} onChange={this.handleQuery} />
 
                     <datalist id='predefQuery'>{queryList}</datalist>
+                    {submitButton}
 
-                    <div>{submitButton}</div>
+                    <ApiPost />
                 </form>
 
                 <section className='list'>{requestList}</section>

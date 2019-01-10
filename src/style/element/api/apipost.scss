@@ -1,0 +1,19 @@
+.api-post {
+    margin-left: 50px;
+
+    &__title {
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    &__add {
+
+    }
+
+    &__body {
+
+        &--hidden {
+            display: none;
+        }
+    }
+}
