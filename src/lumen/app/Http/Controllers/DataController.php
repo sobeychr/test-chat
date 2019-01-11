@@ -12,7 +12,10 @@ class DataController extends BaseController
     protected const DATA_RAW    = 2;
     protected const DATA_SINGLE = 3;
 
-    protected $asc = true;            // bool to sort ASCENDING or DESCENDING
+    protected $asc = true;      // bool to sort ASCENDING or DESCENDING
+    //protected $cacheDelay = 30; // 30 sec
+    protected $cacheDelay = 60 * 60; // 1 hour
+    protected $cacheTime  = 0;  // Cache started loading
     protected $data = self::DATA_RAW; // Expecting results as Raw JSON be default
     protected $filename = ''; // Filename to fetch data - use {id} for numerical incrementation
     protected $filters = [];  // List of DataFilters when fetching data
@@ -52,14 +55,23 @@ class DataController extends BaseController
      */
     protected function get():array
     {
+        $this->cacheTime = time();
+
         if($this->limit === 1) {
             $this->data = self::DATA_SINGLE;
         }
         if($this->data === self::DATA_SINGLE) {
             $this->limit === 1;
         }
-        $data = $this->loadAllFiles();
-        return $this->data === self::DATA_RAW ? $data : array_values($data);
+
+        if(! ($data = $this->loadCache()) ) {
+            $data = $this->loadAllFiles();
+            //$this->registerCache($data);
+        }
+
+        return $this->data === self::DATA_RAW
+            ? $data
+            : array_values($data);
     }
 
     /**
@@ -74,6 +86,39 @@ class DataController extends BaseController
         if($limit) {
             $this->limit = $limit;
         }
+    }
+
+    private function getLatestCacheFile():string
+    {
+        $dirName = str_replace('{id}', '', $this->filename);
+        $dirPath = PATH_CACHE . $dirName . DIRECTORY_SEPARATOR;
+
+        if(!file_exists($dirPath)) {
+            mkdir($dirPath);
+        }
+
+        $timelimit = $this->cacheTime - $this->cacheDelay;
+
+        $files = array();
+        $di = new DirectoryIterator();
+        foreach($di as $file)
+        {
+            if($file->isDot() || !$file->isFile() || !$file->isReadable()) {
+                continue;
+            }
+        }
+
+        return $dirPath . $this->cacheTime . '.json';
+    }
+    private function loadCache():array
+    {
+
+        return [];
+    }
+    private function registerCache(array $data):void
+    {
+        $cacheFile = $this->getLatestCacheFile();
+        file_put_contents($cacheFile, json_encode($data));
     }
 
     // Multiple functions processing the Data from $this->get()
@@ -108,7 +153,8 @@ class DataController extends BaseController
         $u = $this->uTime();
         $this->timelogs = $u;
 
-        return $t === 0 ? $u : ($u - $t);
+        $c = $t === 0 ? $u : round($u - $t, 5);
+        return $c < 0.0001 ? 0 : $c;
     }
     private function uTime():float
     {
@@ -164,11 +210,11 @@ class DataController extends BaseController
             $filepath = str_replace('{id}', ++$id, $fileroot);
         }
 
-        $logs['end'] = $this->lastTime();
+        $logs['end'] = $this->uTime() - $logs['start'];
         echo '<pre>' . print_r($logs, true) . '</pre>';
 
-        return [];
-        //return $data;
+        //return [];
+        return $data;
     }
     private function loadFile(string $filepath):array
     {
