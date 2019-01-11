@@ -1,3 +1,4 @@
 node_modules/
+src/data/cache/
 test/tmp/
 web/src.min.js
