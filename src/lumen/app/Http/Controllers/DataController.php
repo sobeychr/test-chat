@@ -52,25 +52,13 @@ class DataController extends BaseController
      */
     protected function get():array
     {
-        $filepath = PATH_DATA . $this->filename . '.json';
-        $id = 0;
-        $filepath = str_replace('{id}', $id, $filepath);
-
         if($this->limit === 1) {
             $this->data = self::DATA_SINGLE;
         }
-
-        $data = $this->loadFile($filepath);
-        $data = $this->applyFilter($data);
-
         if($this->data === self::DATA_SINGLE) {
-            $data = array_values($data);
-            return count($data) ? $data[0] : [];
+            $this->limit === 1;
         }
-
-        $data = $this->applySort($data);
-        $data = $this->applyLimit($data);
-
+        $data = $this->loadAllFiles();
         return $this->data === self::DATA_RAW ? $data : array_values($data);
     }
 
@@ -91,7 +79,7 @@ class DataController extends BaseController
     // Multiple functions processing the Data from $this->get()
     private function applyFilter(array $data):array
     {
-        if(count($this->filters) > 0) {
+        if(count($data) > 2 && count($this->filters) > 0) {
             foreach($this->filters as $filter) {
                 $data = $filter->filter($data);
             }
@@ -107,13 +95,81 @@ class DataController extends BaseController
     }
     private function applySort(array $data):array
     {
-        if(count($this->sorts) > 0) {
+        if(count($data) > 2 && count($this->sorts) > 0) {
             usort($data, [$this, 'sortGet']);
         }
         return $data;
     }
+    
+    private $timelogs = 0;
+    private function lastTime():float
+    {
+        $t = $this->timelogs;
+        $u = $this->uTime();
+        $this->timelogs = $u;
 
-    // Loads a single file from $this->get()
+        return $t === 0 ? $u : ($u - $t);
+    }
+    private function uTime():float
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
+
+    // Loads a files from $this->get()
+    private function loadAllFiles():array
+    {
+        $logs = [
+            'start' => $this->lastTime(),
+            'it' => [],
+        ];
+
+        $fileroot = PATH_DATA . $this->filename . '.json';
+        $id = 0;
+        $filepath = str_replace('{id}', $id, $fileroot);
+
+        $data = [];
+        while( file_exists($filepath) ) {
+
+            $filedata = $this->loadFile($filepath);
+            $l = [
+                'filepath' => $filepath,
+                'data-raw' => count($data),
+                'filedata-raw' => count($filedata),
+                't-0' => $this->lastTime(),
+            ];
+
+            $filedata = $this->applyFilter($filedata);
+            $l['filedata-filter'] = count($filedata);
+            $l['t-1'] = $this->lastTime();
+
+            if($this->data === self::DATA_SINGLE && count($filedata)) {
+                return array_values($filedata)[0];
+            }
+
+            $data = array_merge($data, $filedata);
+            $l['data-merge'] = count($data);
+            $l['t-2'] = $this->lastTime();
+
+            $data = $this->applySort($data);
+            $l['data-sort'] = count($data);
+            $l['t-3'] = $this->lastTime();
+
+            $data = $this->applyLimit($data);
+            $l['data-limit'] = count($data);
+            $l['t-4'] = $this->lastTime();
+
+            $logs['it'][] = $l;
+
+            $filepath = str_replace('{id}', ++$id, $fileroot);
+        }
+
+        $logs['end'] = $this->lastTime();
+        echo '<pre>' . print_r($logs, true) . '</pre>';
+
+        return [];
+        //return $data;
+    }
     private function loadFile(string $filepath):array
     {
         if(file_exists($filepath)) {

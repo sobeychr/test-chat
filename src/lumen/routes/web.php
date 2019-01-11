@@ -37,6 +37,7 @@ $router->group(['middleware' => ['json', 'cors']],
 
         // Loads messages and users
         //$router->get('/init',  'InitController@get');
+        $router->get('/test',  'MessageController@test');
 
         // Handles messages
         $router->group(['prefix' => 'message'], function() use ($router, $params, $regexps, $userfields) {
