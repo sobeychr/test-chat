@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Datafilters\FilterMatch;
+use App\Data\Filter\FilterMatch;
 
 class UserController extends DataController
 {

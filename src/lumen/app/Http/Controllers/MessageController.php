@@ -78,57 +78,30 @@ class MessageController extends DataController
 
     public function user(int $id):array
     {
-        $data = $this->id($id);
-        $userid = $data[self::FIELD_USER] ?? 0;
-        if(!$userid) {
-            return [];
+        $this->cacheCustom = true;
+        $data = $this->cache->load();
+
+        if(!$data) {
+            $message = $this->id($id);
+            $userid = $message[self::FIELD_USER] ?? 0;
+            $data = app('App\Http\Controllers\UserController')->id($userid);
+            $this->cache->register($data);
         }
-        return app('App\Http\Controllers\UserController')->id($userid);
+
+        return $data;
     }
 
-    public function userField(int $id, string $field):string
+    public function userField(int $id, string $field):array
     {
-       $user = $this->user($id);
-       return $user[$field] ?? '';
+        $this->cacheCustom = true;
+        $data = $this->cache->load();
+
+        if(!$data) {
+            $user = $this->user($id);
+            $data = [$field => $user[$field] ?? ''];
+            $this->cache->register($data);
+        }
+
+        return $data;
     }
-
-    // Various search via API
-    /*
-    public function id(int $id):array   { return $this->find(['id' => $id], true); }
-    public function from(int $id):array { return $this->find(['userid' => $id]); }
-
-    public function after(string $dateString):array  { return $this->greaterEqual( ['time' => $this->parseDateString($dateString)]); }
-    public function before(string $dateString):array { return $this->lowerEqual(   ['time' => $this->parseDateString($dateString)]); }
-    public function between(string $start, string $end):array
-    {
-        return $this->filterBetween(
-            'time',
-            $this->parseDateString($start),
-            $this->parseDateString($end)
-        );
-    }
-    public function has(string $text):array { return $this->contain(['text' => $text]); }
-    */
-
-    /**
-     * Enters a new message entry and returns the list as JSON string
-     * @param int $userid [UserID submitting the new message]
-     * @param string $text [Entry of the message]
-     * @return string [Messages as JSON string]
-     */
-    /*
-    public function post(\Illuminate\Http\Request $request):string
-    {
-        $data = $request->all();
-
-        $file = $this->getFile();
-        $file[] = [
-            'userid' => $data['userid'] ?? 0,
-            'text'   => $data['text'] ?? '',
-            'time'   => time(),
-        ];
-
-        return $file;
-    }
-    */
 }

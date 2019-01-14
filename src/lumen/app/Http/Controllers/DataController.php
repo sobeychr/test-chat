@@ -21,19 +21,13 @@ abstract class DataController extends BaseController
     protected $output = self::OUTPUT_RAW; // Expecting results as Raw JSON be default
     protected $sorts = []; // List of fields as String to sort upon
 
-    protected $cacheDelay = 10; // 10 seconds
     protected $cache = false;
+    protected $cacheDelay  = 10; // 10 seconds
+    protected $cacheCustom = false;
 
-    /**
-     * Returns a single entry via ID
-     * @param  int $id [ID to search for]
-     * @return array   [The JSON content of the entry]
-     */
-    public function id(int $id):array
+    public function __construct()
     {
-        $this->output = DataController::OUTPUT_SINGLE;
-        $this->filters[] = new FilterMatch('id', $id);
-        return $this->get();
+        $this->cache = new CacheManager($this->cacheDelay, $this->filename);
     }
 
     /**
@@ -64,16 +58,28 @@ abstract class DataController extends BaseController
             $this->limit === 1;
         }
 
-        $this->cache = new CacheManager($this->cacheDelay, $this->filename);
-
-        if(! ($data = $this->cache->load()) ) {
+        $data = $this->cacheCustom ? $this->loadData() : $this->cache->load();
+        
+        if(!$this->cacheCustom && !$data) {
             $data = $this->loadData();
             $this->cache->register($data);
         }
 
-        return $this->output === self::OUTPUT_RAW
-            ? $data
-            : array_values($data);
+        return $this->output === self::OUTPUT_LIST
+            ? array_values($data)
+            : $data;
+    }
+
+    /**
+     * Returns a single entry via ID
+     * @param  int $id [ID to search for]
+     * @return array   [The JSON content of the entry]
+     */
+    public function id(int $id):array
+    {
+        $this->output = DataController::OUTPUT_SINGLE;
+        $this->filters[] = new FilterMatch('id', $id);
+        return $this->get();
     }
 
     /**
@@ -136,8 +142,6 @@ abstract class DataController extends BaseController
 
             $filepath = str_replace('{id}', ++$id, $fileroot);
         }
-
-        //return [];
         return $data;
     }
 

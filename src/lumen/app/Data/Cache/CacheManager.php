@@ -2,8 +2,6 @@
 
 namespace App\Data\Cache;
 
-use App\Data\Filter\DataFilter;
-use App\Http\Controllers\DataController;
 use Illuminate\Http\Request;
 
 class CacheManager
