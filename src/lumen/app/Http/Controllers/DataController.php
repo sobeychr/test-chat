@@ -21,10 +21,8 @@ abstract class DataController extends BaseController
     protected $output = self::OUTPUT_RAW; // Expecting results as Raw JSON be default
     protected $sorts = []; // List of fields as String to sort upon
 
-    protected $cacheDelay = 60 * 60 * 6; // 6 hours - DEV
-    private $cache = false;
-    
-    protected $data = false;
+    protected $cacheDelay = 10; // 10 seconds
+    protected $cache = false;
 
     /**
      * Returns a single entry via ID
