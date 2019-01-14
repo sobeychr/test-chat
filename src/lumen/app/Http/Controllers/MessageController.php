@@ -71,6 +71,11 @@ class MessageController extends DataController
         return $this->get();
     }
 
+    public function post():array
+    {
+        return [];
+    }
+
     public function text(int $id):array
     {
         return $this->field($id, self::FIELD_TEXT);

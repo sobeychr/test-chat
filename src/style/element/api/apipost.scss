@@ -1,3 +1,5 @@
+$addColor: #e68a00;
+
 .api-post {
     margin-left: 50px;
 
@@ -7,10 +9,20 @@
     }
 
     &__add {
+        background: #000;
+        border: 2px solid $addColor;
+        color: $addColor;
+        cursor: pointer;
         margin-left: 20px;
+        padding: 5px 9px;
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &__body {
+        margin-top: 7px;
 
         &--hidden {
             display: none;

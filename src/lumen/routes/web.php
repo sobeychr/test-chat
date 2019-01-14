@@ -37,18 +37,19 @@ $router->group(['middleware' => ['json', 'cors']],
 
         // Loads messages and users
         //$router->get('/init',  'InitController@get');
-        $router->get('/test',  'MessageController@test');
 
         // Handles messages
         $router->group(['prefix' => 'message'], function() use ($router, $params, $regexps, $userfields) {
             $router->get('/list'.$params['limit_sort'], 'MessageController@list');
             
+            // Loads message list
             $router->get('/after/{dateString:' .$regexps['date'].'}'.$params['limit'], 'MessageController@after');
             $router->get('/before/{dateString:'.$regexps['date'].'}'.$params['limit'], 'MessageController@before');
             $router->get('/between/{start:'.$regexps['date'].'}/{end:'.$regexps['date'].'}'.$params['limit_sort'], 'MessageController@between');
             $router->get('/from/{id:'.$regexps['int'].'}'.$params['limit_sort'], 'MessageController@from');
             $router->get('/has/{text:'.$regexps['search'].'}'.$params['limit_sort'], 'MessageController@has');
 
+            // Loads data from a Message
             $router->group(['prefix' => '{id:'.$regexps['int'].'}'], function() use ($router, $userfields) {
                 $router->get('/', 'MessageController@id');
                 $router->get('/text', 'MessageController@text');
@@ -59,13 +60,11 @@ $router->group(['middleware' => ['json', 'cors']],
                 });
             });
             
-
-            /*
+            // Registers a new Message
             $router->post('/new', 'MessageController@post');
             $router->options('/new', function() {
                 return response()->json([], 206);
             });
-            */
         });
 
         // Handles users

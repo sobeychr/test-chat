@@ -54,11 +54,9 @@ class ApiPost extends React.Component {
                     <span onClick={this.handleShow}>Post content</span>
                     <button className='api-post__add' type='button' onClick={this.handleAdd}>Add entry</button>
                 </div>
-                <table className={bodyClass.join(' ')}>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
+                <div className={bodyClass.join(' ')}>
+                    {rows}
+                </div>
             </div>
         );
     }

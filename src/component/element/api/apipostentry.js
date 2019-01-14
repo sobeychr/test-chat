@@ -31,14 +31,14 @@ class ApiPost extends React.Component {
         const {label, value} = this.state;
 
         return (
-            <tr>
-                <td>
-                    <input type='text' value={label} onChange={this.handleLabel}/>
-                </td>
-                <td>
-                    <input type='text' value={value} onChange={this.handleValue}/>
-                </td>
-            </tr>
+            <div className='api-post-entry'>
+                <div className='api-post-entry__label'>
+                    <input type='text' value={label} className='api-post-entry__input' placeholder='label' onChange={this.handleLabel}/>
+                </div>
+                <div className='api-post-entry__value'>
+                    <input type='text' value={value} className='api-post-entry__input' placeholder='value' onChange={this.handleValue}/>
+                </div>
+            </div>
         );
     }
 }

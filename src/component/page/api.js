@@ -8,6 +8,8 @@ import 'Style/page/api.scss';
 const getTimestamp = () => new Date().getTime();
 
 const predefQuery = [
+    'message/new',
+
     'message/after',
     'message/before',
     'message/between',
