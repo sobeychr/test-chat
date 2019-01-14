@@ -31,7 +31,7 @@ abstract class DataController extends BaseController
      */
     public function id(int $id):array
     {
-        $this->output = DataController::DATA_SINGLE;
+        $this->output = DataController::OUTPUT_SINGLE;
         $this->filters[] = new FilterMatch('id', $id);
         return $this->get();
     }
