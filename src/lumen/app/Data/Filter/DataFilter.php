@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Datafilters;
+namespace App\Data\Filter;
 
 abstract class DataFilter
 {

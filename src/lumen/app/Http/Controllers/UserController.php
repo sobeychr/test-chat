@@ -11,19 +11,19 @@ class UserController extends DataController
     private const ONLINE_STRING = 'online';
 
     protected $filename = 'user-generated-{id}';
-    protected $sorts = ['id', 'name'];
+    protected $sorts = ['name'];
     protected $returnLimit = 50;
 
     public function list(int $limit=0, string $sort='asc'):array
     {
-        $this->data = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         return $this->get();
     }
 
     public function status(string $status, int $limit=0, string $sort='asc'):array
     {
-        $this->data = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
 
         $status = $status === self::ONLINE_STRING

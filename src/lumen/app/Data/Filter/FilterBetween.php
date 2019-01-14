@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Datafilters;
+namespace App\Data\Filter;
 
-class FilterBetween
+class FilterBetween extends DataFilter
 {
     protected $field = '';
     protected $min = 0;

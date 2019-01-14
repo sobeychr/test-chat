@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Datafilters\FilterMatch;
+use App\Data\Timelog;
+use App\Data\Cache\CacheManager;
+use App\Data\Filter\FilterMatch;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class DataController extends BaseController
+abstract class DataController extends BaseController
 {
     // If the data output should be a List, Raw JSON or a Single JSON entry
-    protected const DATA_LIST   = 1;
-    protected const DATA_RAW    = 2;
-    protected const DATA_SINGLE = 3;
+    protected const OUTPUT_LIST   = 1;
+    protected const OUTPUT_RAW    = 2;
+    protected const OUTPUT_SINGLE = 3;
 
     protected $asc = true;      // bool to sort ASCENDING or DESCENDING
-    //protected $cacheDelay = 30; // 30 sec
-    protected $cacheDelay = 60 * 60; // 1 hour
-    protected $cacheTime  = 0;  // Cache started loading
-    protected $data = self::DATA_RAW; // Expecting results as Raw JSON be default
     protected $filename = ''; // Filename to fetch data - use {id} for numerical incrementation
     protected $filters = [];  // List of DataFilters when fetching data
     protected $limit = 50; // Limit of entries to return
+    protected $output = self::OUTPUT_RAW; // Expecting results as Raw JSON be default
     protected $sorts = []; // List of fields as String to sort upon
+
+    protected $cacheDelay = 60 * 60 * 6; // 6 hours - DEV
+    private $cache = false;
+    
+    protected $data = false;
 
     /**
      * Returns a single entry via ID
@@ -29,7 +33,7 @@ class DataController extends BaseController
      */
     public function id(int $id):array
     {
-        $this->data = DataController::DATA_SINGLE;
+        $this->output = DataController::DATA_SINGLE;
         $this->filters[] = new FilterMatch('id', $id);
         return $this->get();
     }
@@ -49,27 +53,27 @@ class DataController extends BaseController
 
     /**
      * Loads JSON files and returns content as Array
-     * @uses $this->data
+     * @uses $this->output
      * @uses $this->applyFilter()
      * @return array [JSON content as Array]
      */
     protected function get():array
     {
-        $this->cacheTime = time();
-
         if($this->limit === 1) {
-            $this->data = self::DATA_SINGLE;
+            $this->output = self::OUTPUT_SINGLE;
         }
-        if($this->data === self::DATA_SINGLE) {
+        if($this->output === self::OUTPUT_SINGLE) {
             $this->limit === 1;
         }
 
-        if(! ($data = $this->loadCache()) ) {
-            $data = $this->loadAllFiles();
-            //$this->registerCache($data);
+        $this->cache = new CacheManager($this->cacheDelay, $this->filename);
+
+        if(! ($data = $this->cache->load()) ) {
+            $data = $this->loadData();
+            $this->cache->register($data);
         }
 
-        return $this->data === self::DATA_RAW
+        return $this->output === self::OUTPUT_RAW
             ? $data
             : array_values($data);
     }
@@ -86,39 +90,6 @@ class DataController extends BaseController
         if($limit) {
             $this->limit = $limit;
         }
-    }
-
-    private function getLatestCacheFile():string
-    {
-        $dirName = str_replace('{id}', '', $this->filename);
-        $dirPath = PATH_CACHE . $dirName . DIRECTORY_SEPARATOR;
-
-        if(!file_exists($dirPath)) {
-            mkdir($dirPath);
-        }
-
-        $timelimit = $this->cacheTime - $this->cacheDelay;
-
-        $files = array();
-        $di = new DirectoryIterator();
-        foreach($di as $file)
-        {
-            if($file->isDot() || !$file->isFile() || !$file->isReadable()) {
-                continue;
-            }
-        }
-
-        return $dirPath . $this->cacheTime . '.json';
-    }
-    private function loadCache():array
-    {
-
-        return [];
-    }
-    private function registerCache(array $data):void
-    {
-        $cacheFile = $this->getLatestCacheFile();
-        file_put_contents($cacheFile, json_encode($data));
     }
 
     // Multiple functions processing the Data from $this->get()
@@ -145,77 +116,33 @@ class DataController extends BaseController
         }
         return $data;
     }
-    
-    private $timelogs = 0;
-    private function lastTime():float
-    {
-        $t = $this->timelogs;
-        $u = $this->uTime();
-        $this->timelogs = $u;
 
-        $c = $t === 0 ? $u : round($u - $t, 5);
-        return $c < 0.0001 ? 0 : $c;
-    }
-    private function uTime():float
+    private function loadData():array
     {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
-    }
-
-    // Loads a files from $this->get()
-    private function loadAllFiles():array
-    {
-        $logs = [
-            'start' => $this->lastTime(),
-            'it' => [],
-        ];
-
         $fileroot = PATH_DATA . $this->filename . '.json';
         $id = 0;
         $filepath = str_replace('{id}', $id, $fileroot);
 
         $data = [];
         while( file_exists($filepath) ) {
-
             $filedata = $this->loadFile($filepath);
-            $l = [
-                'filepath' => $filepath,
-                'data-raw' => count($data),
-                'filedata-raw' => count($filedata),
-                't-0' => $this->lastTime(),
-            ];
-
             $filedata = $this->applyFilter($filedata);
-            $l['filedata-filter'] = count($filedata);
-            $l['t-1'] = $this->lastTime();
 
-            if($this->data === self::DATA_SINGLE && count($filedata)) {
+            if($this->output === self::OUTPUT_SINGLE && count($filedata)) {
                 return array_values($filedata)[0];
             }
 
             $data = array_merge($data, $filedata);
-            $l['data-merge'] = count($data);
-            $l['t-2'] = $this->lastTime();
-
             $data = $this->applySort($data);
-            $l['data-sort'] = count($data);
-            $l['t-3'] = $this->lastTime();
-
             $data = $this->applyLimit($data);
-            $l['data-limit'] = count($data);
-            $l['t-4'] = $this->lastTime();
-
-            $logs['it'][] = $l;
 
             $filepath = str_replace('{id}', ++$id, $fileroot);
         }
 
-        $logs['end'] = $this->uTime() - $logs['start'];
-        echo '<pre>' . print_r($logs, true) . '</pre>';
-
         //return [];
         return $data;
     }
+
     private function loadFile(string $filepath):array
     {
         if(file_exists($filepath)) {

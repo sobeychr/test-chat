@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Datafilters\{FilterBetween, FilterContain, FilterGreaterEqual, FilterLowerEqual, FilterMatch};
+use App\Data\Filter\{FilterBetween, FilterContain, FilterGreaterEqual, FilterLowerEqual, FilterMatch};
 
 class MessageController extends DataController
 {
@@ -16,7 +16,7 @@ class MessageController extends DataController
 
     public function after(string $dateString, int $limit=0):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit);
         $this->filters[] = new FilterGreaterEqual(
             self::FIELD_TIME,
@@ -27,7 +27,7 @@ class MessageController extends DataController
 
     public function before(string $dateString, int $limit=0):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit);
         $this->filters[] = new FilterLowerEqual(
             self::FIELD_TIME,
@@ -38,7 +38,7 @@ class MessageController extends DataController
 
     public function between(string $start, string $end, int $limit=0, string $sort='asc'):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         $this->filters[] = new FilterBetween(
             self::FIELD_TIME,
@@ -50,7 +50,7 @@ class MessageController extends DataController
 
     public function from(int $id, int $limit=0, string $sort='asc'):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         $this->filters[] = new FilterMatch(self::FIELD_USER, $id);
         return $this->get();
@@ -58,7 +58,7 @@ class MessageController extends DataController
 
     public function has(string $text, int $limit=0, string $sort='asc'):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         $this->filters[] = new FilterContain(self::FIELD_TEXT, $text);
         return $this->get();
@@ -66,7 +66,7 @@ class MessageController extends DataController
 
     public function list(int $limit=0, string $sort='asc'):array
     {
-        $this->dataOutput = DataController::DATA_LIST;
+        $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         return $this->get();
     }
