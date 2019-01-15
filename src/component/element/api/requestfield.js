@@ -32,10 +32,14 @@ const RequestField = ({label, value}) => {
     const labelClass = ['request-field__label'];
     var details = false;
 
-    if(isNaN(value)) {
-        labelClass.push('string');
-
+    if(Array.isArray(value)) {
+        labelClass.push('array');
         label += '(' + value.length + ')';
+    }
+    else if(isNaN(value)) {
+        labelClass.push('string');
+        label += '(' + value.length + ')';
+
         value = value.substring(0, Math.min(maxString, value.length));
     }
     else {
@@ -61,6 +65,7 @@ const RequestField = ({label, value}) => {
 RequestField.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([
+            PropTypes.array,
             PropTypes.string,
             PropTypes.number
         ]).isRequired

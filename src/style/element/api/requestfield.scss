@@ -15,8 +15,11 @@
         display: inline-block;
         font-family: 'Courier New', sans-serif;
         margin-right: 5px;
-        width: 82px;
+        width: 120px;
 
+        &.array {
+            color: #e6e600;
+        }
         &.date {
             color: $linkColor0;
         }

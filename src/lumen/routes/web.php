@@ -38,6 +38,12 @@ $router->group(['middleware' => ['json', 'cors']],
         // Loads messages and users
         //$router->get('/init',  'InitController@get');
 
+        // Handles cache
+        $router->group(['prefix' => 'cache'], function() use ($router) {
+            $router->get('/',      'CacheController@list');
+            $router->get('/clear', 'CacheController@clear');
+        });
+
         // Handles messages
         $router->group(['prefix' => 'message'], function() use ($router, $params, $regexps, $userfields) {
             $router->get('/list'.$params['limit_sort'], 'MessageController@list');

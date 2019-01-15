@@ -8,6 +8,7 @@ import 'Style/page/api.scss';
 const getTimestamp = () => new Date().getTime();
 
 const predefQuery = [
+    'cache',
     'message/new',
 
     'message/after',
@@ -95,7 +96,7 @@ class Api extends React.Component {
         const submitButton = this.state.loading
             ? <span className='loading'>Loading</span>
             : <div>
-                <button className='submit' type='button' onClick={() => {this.handleQuerySubmit(false);}}>GET</button>
+                <button className='submit' type='submit' onClick={() => {this.handleQuerySubmit(false);}}>GET</button>
                 <button className='submit' type='button' onClick={() => {this.handleQuerySubmit(true);}}>POST</button>
             </div>;
         
