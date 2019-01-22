@@ -69,11 +69,25 @@ class MessageController extends DataController
         $this->output = DataController::OUTPUT_LIST;
         $this->registerLimitSort($limit, $sort);
         return $this->get();
+        
+        
+        //var_dump($this->cache);
+        //echo '<pre>'.print_r($this->cache->logs(), true).'</pre>';
+        //return [];
     }
 
     public function post():array
     {
-        return [];
+        $list  = $this->list();
+
+        $list[] = [
+            'id' => 987654321,
+            'userid' => 1,
+            'text' => 'test new post',
+            'time' => time(),
+        ];
+
+        return $list;
     }
 
     public function text(int $id):array

@@ -9,6 +9,8 @@ const getTimestamp = () => new Date().getTime();
 
 const predefQuery = [
     'cache',
+    'cache/clear',
+    'message/list',
     'message/new',
 
     'message/after',
@@ -16,7 +18,6 @@ const predefQuery = [
     'message/between',
     'message/from',
     'message/has',
-    'message/list',
 
     'user/list',
     'user/offline',
@@ -108,7 +109,7 @@ class Api extends React.Component {
                     <datalist id='predefQuery'>{queryList}</datalist>
                     {submitButton}
 
-                    <ApiPost />
+                    <ApiPost data={[]} />
                 </form>
 
                 <section className='list'>{requestList}</section>

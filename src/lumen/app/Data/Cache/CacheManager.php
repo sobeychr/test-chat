@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class CacheManager
 {
+    public $controller = '';
+    public $query = '';
+    public $sort = 'asc';
+
     protected $delay = 0;
     protected $request = false;
     protected $time = 0;
@@ -15,6 +19,12 @@ class CacheManager
         $this->delay = $delay;
         $this->request = app(Request::class);
         $this->time = time();
+
+        $queryPath = $this->request->path();
+        $paths = explode('/', $queryPath, 3);
+
+        $this->controller = $paths[0];
+        $this->query = $paths[1];
     }
 
     public function load():array
@@ -46,9 +56,13 @@ class CacheManager
 
     private function getDirectory():string
     {
-        $queryFolder = str_replace('/', '-', $this->getQuery()) . DIRECTORY_SEPARATOR;
-        $dir = PATH_CACHE . $queryFolder;
-        return $dir;
+        $split = DIRECTORY_SEPARATOR;
+        $dir = implode($split, [
+            $this->controller,
+            $this->query,
+            $this->sort,
+        ]);
+        return PATH_CACHE . $dir . $split;
     }
 
     private function getLatestFile():string
@@ -78,10 +92,5 @@ class CacheManager
         }
 
         return $filepath;
-    }
-
-    private function getQuery():string
-    {
-        return $this->request->path();
     }
 }

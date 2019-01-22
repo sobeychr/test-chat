@@ -67,10 +67,13 @@ $router->group(['middleware' => ['json', 'cors']],
             });
             
             // Registers a new Message
+            $router->get('/new', 'MessageController@post');
+            /*
             $router->post('/new', 'MessageController@post');
             $router->options('/new', function() {
                 return response()->json([], 206);
             });
+            */
         });
 
         // Handles users

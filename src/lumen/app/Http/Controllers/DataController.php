@@ -22,12 +22,13 @@ abstract class DataController extends BaseController
     protected $sorts = []; // List of fields as String to sort upon
 
     protected $cache = false;
-    protected $cacheDelay  = 10; // 10 seconds
+    //protected $cacheDelay  = 10; // 10 seconds
+    protected $cacheDelay  = 60 * 60; // 1 hour
     protected $cacheCustom = false;
 
     public function __construct()
     {
-        $this->cache = new CacheManager($this->cacheDelay, $this->filename);
+        $this->cache = new CacheManager($this->cacheDelay);
     }
 
     /**
@@ -58,9 +59,8 @@ abstract class DataController extends BaseController
             $this->limit === 1;
         }
 
-        $data = $this->cacheCustom ? $this->loadData() : $this->cache->load();
-        
-        if(!$this->cacheCustom && !$data) {
+        $data = $this->cache->load();
+        if(!$data) {
             $data = $this->loadData();
             $this->cache->register($data);
         }
@@ -91,6 +91,8 @@ abstract class DataController extends BaseController
     protected function registerLimitSort(int $limit=0, string $sort='asc'):void
     {
         $this->asc = $sort === 'desc' ? false : true;
+        $this->cache->sort = $this->asc ? 'asc' : 'desc';
+
         if($limit) {
             $this->limit = $limit;
         }
